@@ -4,9 +4,13 @@ import { Button } from "@/components/ui/button";
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calendar as CalendarIcon } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";
 import StudentPhotoUpload from "../StudentPhotoUpload";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 interface PersonalInfoTabProps {
   form: UseFormReturn<any>;
@@ -64,11 +68,44 @@ const PersonalInfoTab: React.FC<PersonalInfoTabProps> = ({
           control={form.control}
           name="date_naissance"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="flex flex-col">
               <FormLabel>Date de naissance</FormLabel>
-              <FormControl>
-                <Input type="date" {...field} />
-              </FormControl>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full pl-3 text-left font-normal flex justify-between items-center",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value ? (
+                        format(new Date(field.value), "dd/MM/yyyy")
+                      ) : (
+                        <span>Sélectionner une date</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-70" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={field.value ? new Date(field.value) : undefined}
+                    onSelect={(date) => {
+                      if (date) {
+                        field.onChange(format(date, "yyyy-MM-dd"));
+                      }
+                    }}
+                    disabled={(date) =>
+                      date > new Date() || date < new Date("1940-01-01")
+                    }
+                    initialFocus
+                    className="p-3 pointer-events-auto"
+                  />
+                </PopoverContent>
+              </Popover>
               <FormMessage />
             </FormItem>
           )}
@@ -137,3 +174,4 @@ const PersonalInfoTab: React.FC<PersonalInfoTabProps> = ({
 };
 
 export default PersonalInfoTab;
+
