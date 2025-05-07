@@ -19,12 +19,8 @@ const StatsCards = lazy(() => import('@/components/dashboard/StatsCards'));
 const LevelDistributionChart = lazy(() => import('@/components/dashboard/LevelDistributionChart'));
 const ProgramDistributionChart = lazy(() => import('@/components/dashboard/ProgramDistributionChart'));
 const ClassScheduleTable = lazy(() => import('@/components/dashboard/ClassScheduleTable'));
-const AttendanceChart = lazy(() => import('@/components/dashboard/AttendanceChart'));
-const TeacherScheduleList = lazy(() => import('@/components/dashboard/TeacherScheduleList'));
 
 const Dashboard: React.FC = () => {
-  const [activeLevel, setActiveLevel] = useState<string>("all");
-  
   // Sample data for statistics with improved metrics
   const statCards = [
     {
@@ -63,15 +59,6 @@ const Dashboard: React.FC = () => {
       details: "Taux de présence globale",
       description: "Présence moyenne des étudiants"
     }
-  ];
-
-  // Simulons des données pour les statistiques d'assiduité
-  const attendanceData = [
-    { date: 'Lun', présence: 94, absence: 6 },
-    { date: 'Mar', présence: 91, absence: 9 },
-    { date: 'Mer', présence: 88, absence: 12 },
-    { date: 'Jeu', présence: 93, absence: 7 },
-    { date: 'Ven', présence: 89, absence: 11 },
   ];
   
   return (
@@ -130,7 +117,7 @@ const Dashboard: React.FC = () => {
         <div className="grid grid-cols-12 gap-6 mt-6">
           {/* Charts section with Suspense for lazy loading */}
           <Suspense fallback={
-            <Card className="col-span-12 md:col-span-6 lg:col-span-4 win11-card animate-pulse">
+            <Card className="col-span-12 md:col-span-6 lg:col-span-6 win11-card animate-pulse">
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
                   <Skeleton className="h-6 w-40 mb-2" />
@@ -143,7 +130,7 @@ const Dashboard: React.FC = () => {
               </CardContent>
             </Card>
           }>
-            <Card className="col-span-12 md:col-span-6 lg:col-span-4 win11-card win11-enter">
+            <Card className="col-span-12 md:col-span-6 lg:col-span-6 win11-card win11-enter">
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
                   <CardTitle className="text-xl font-semibold">Répartition par niveau</CardTitle>
@@ -158,7 +145,7 @@ const Dashboard: React.FC = () => {
           </Suspense>
 
           <Suspense fallback={
-            <Card className="col-span-12 md:col-span-6 lg:col-span-4 win11-card animate-pulse">
+            <Card className="col-span-12 md:col-span-6 lg:col-span-6 win11-card animate-pulse">
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
                   <Skeleton className="h-6 w-40 mb-2" />
@@ -171,7 +158,7 @@ const Dashboard: React.FC = () => {
               </CardContent>
             </Card>
           }>
-            <Card className="col-span-12 md:col-span-6 lg:col-span-4 win11-card win11-enter" style={{animationDelay: "0.1s"}}>
+            <Card className="col-span-12 md:col-span-6 lg:col-span-6 win11-card win11-enter" style={{animationDelay: "0.1s"}}>
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
                   <CardTitle className="text-xl font-semibold">Répartition par filière</CardTitle>
@@ -181,70 +168,6 @@ const Dashboard: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <ProgramDistributionChart className="" />
-              </CardContent>
-            </Card>
-          </Suspense>
-
-          <Suspense fallback={
-            <Card className="col-span-12 md:col-span-6 lg:col-span-4 win11-card animate-pulse">
-              <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <Skeleton className="h-6 w-40 mb-2" />
-                  <Skeleton className="h-4 w-32" />
-                </div>
-                <Skeleton className="h-8 w-8 rounded" />
-              </CardHeader>
-              <CardContent className="flex items-center justify-center min-h-[250px]">
-                <Loader2 className="h-10 w-10 animate-spin text-muted-foreground" />
-              </CardContent>
-            </Card>
-          }>
-            <Card className="col-span-12 md:col-span-6 lg:col-span-4 win11-card win11-enter" style={{animationDelay: "0.2s"}}>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <CardTitle className="text-xl font-semibold">Taux de présence</CardTitle>
-                  <CardDescription>Assiduité hebdomadaire</CardDescription>
-                </div>
-                <LineChart className="h-5 w-5 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <AttendanceChart data={attendanceData} />
-              </CardContent>
-            </Card>
-          </Suspense>
-
-          {/* Teacher Schedule with Tabs by Level - New Component */}
-          <Suspense fallback={
-            <Card className="col-span-12 win11-card animate-pulse">
-              <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <Skeleton className="h-6 w-48 mb-2" />
-                  <Skeleton className="h-4 w-64" />
-                </div>
-                <Skeleton className="h-9 w-24 rounded" />
-              </CardHeader>
-              <CardContent>
-                <div className="rounded-md border overflow-hidden">
-                  <div className="h-[300px] flex items-center justify-center">
-                    <Loader2 className="h-10 w-10 animate-spin text-muted-foreground" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          }>
-            <Card className="col-span-12 win11-card win11-reveal" style={{animationDelay: "0.3s"}}>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <CardTitle className="text-xl font-semibold">Enseignants du jour</CardTitle>
-                  <CardDescription>Liste des enseignants qui auront cours aujourd'hui - {new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</CardDescription>
-                </div>
-                <Button variant="outline" size="sm" className="win11-button">
-                  Voir tout
-                  <ChevronRight className="ml-1 h-4 w-4" />
-                </Button>
-              </CardHeader>
-              <CardContent>
-                <TeacherScheduleList activeLevel={activeLevel} setActiveLevel={setActiveLevel} />
               </CardContent>
             </Card>
           </Suspense>
