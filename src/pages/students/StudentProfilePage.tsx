@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import { 
@@ -25,8 +24,11 @@ import {
   Download,
   ChevronLeft,
   BookOpen,
-  CreditCard
+  CreditCard,
+  FilePdf,
+  Printer
 } from "lucide-react";
+import PDFExportDialog from "@/components/students/pdf/PDFExportDialog";
 
 // Mock data for student profile
 const MOCK_STUDENTS = {
@@ -139,6 +141,7 @@ const MOCK_STUDENTS = {
 const StudentProfilePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const student = id ? MOCK_STUDENTS[id as keyof typeof MOCK_STUDENTS] : null;
+  const [isPdfDialogOpen, setIsPdfDialogOpen] = useState(false);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -202,10 +205,25 @@ const StudentProfilePage: React.FC = () => {
               </Button>
             </Link>
             
-            <Button variant="outline" className="gap-2">
-              <Download size={16} />
-              Exporter le dossier
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                className="gap-2"
+                onClick={() => setIsPdfDialogOpen(true)}
+              >
+                <FilePdf size={16} />
+                Exporter le dossier
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                className="gap-2"
+                onClick={() => setIsPdfDialogOpen(true)}
+              >
+                <Printer size={16} />
+                Imprimer
+              </Button>
+            </div>
           </div>
           
           {/* Student profile header */}
@@ -474,6 +492,13 @@ const StudentProfilePage: React.FC = () => {
           </Tabs>
         </div>
       </div>
+
+      {/* PDF Export Dialog */}
+      <PDFExportDialog 
+        open={isPdfDialogOpen} 
+        onOpenChange={setIsPdfDialogOpen}
+        student={student}
+      />
     </>
   );
 };
