@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Header from "@/components/layout/Header";
 import { Input } from "@/components/ui/input";
@@ -14,6 +13,7 @@ import {
 } from "@/components/ui/table";
 import { Search, BookOpen, ChevronDown, PlusCircle } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useIsTablet } from "@/hooks/use-mobile";
 
 // Mock data for books
 const MOCK_BOOKS = [
@@ -39,6 +39,7 @@ const MOCK_LOANS = [
 
 const LibraryPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const isTablet = useIsTablet();
 
   // Filter books based on search term
   const filteredBooks = MOCK_BOOKS.filter(book => 
@@ -59,19 +60,19 @@ const LibraryPage: React.FC = () => {
   return (
     <>
       <Header title="Gestion de la bibliothèque" />
-      <div className="flex-1 overflow-auto p-6">
-        <div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
-          <div className="flex items-center w-full md:w-auto relative">
+      <div className="flex-1 overflow-auto p-4 lg:p-6">
+        <div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
+          <div className="flex items-center w-full lg:w-auto relative">
             <Search className="absolute left-3 text-muted-foreground h-4 w-4" />
             <Input 
               placeholder="Rechercher..." 
-              className="pl-10 w-full md:w-80" 
+              className="pl-10 w-full lg:w-80" 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           <div className="flex gap-2">
-            <Button className="gap-2">
+            <Button className="gap-2 w-full lg:w-auto">
               <PlusCircle size={18} />
               <span>Ajouter un livre</span>
             </Button>
@@ -88,30 +89,30 @@ const LibraryPage: React.FC = () => {
             </div>
             
             <TabsContent value="books">
-              <CardContent>
-                <div className="rounded-md border">
+              <CardContent className="p-2 sm:p-4">
+                <div className="rounded-md border overflow-x-auto">
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Titre</TableHead>
-                        <TableHead className="hidden md:table-cell">Auteur</TableHead>
-                        <TableHead className="hidden md:table-cell">Catégorie</TableHead>
-                        <TableHead>Statut</TableHead>
-                        <TableHead>Exemplaires</TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead className="whitespace-nowrap">ID</TableHead>
+                        <TableHead className="whitespace-nowrap">Titre</TableHead>
+                        <TableHead className="hidden md:table-cell whitespace-nowrap">Auteur</TableHead>
+                        <TableHead className="hidden lg:table-cell whitespace-nowrap">Catégorie</TableHead>
+                        <TableHead className="whitespace-nowrap">Statut</TableHead>
+                        <TableHead className="whitespace-nowrap">Exemplaires</TableHead>
+                        <TableHead className="whitespace-nowrap">Actions</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {filteredBooks.length > 0 ? (
                         filteredBooks.map((book) => (
                           <TableRow key={book.id}>
-                            <TableCell className="font-medium">{book.id}</TableCell>
-                            <TableCell>{book.title}</TableCell>
-                            <TableCell className="hidden md:table-cell">{book.author}</TableCell>
-                            <TableCell className="hidden md:table-cell">{book.category}</TableCell>
+                            <TableCell className="font-medium whitespace-nowrap">{book.id}</TableCell>
+                            <TableCell className={isTablet ? "max-w-[150px] truncate" : ""}>{book.title}</TableCell>
+                            <TableCell className="hidden md:table-cell whitespace-nowrap">{book.author}</TableCell>
+                            <TableCell className="hidden lg:table-cell whitespace-nowrap">{book.category}</TableCell>
                             <TableCell>
-                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
                                 book.status === "Disponible" 
                                   ? "bg-green-100 text-green-800" 
                                   : "bg-amber-100 text-amber-800"
@@ -119,8 +120,8 @@ const LibraryPage: React.FC = () => {
                                 {book.status}
                               </span>
                             </TableCell>
-                            <TableCell>{book.copies}</TableCell>
-                            <TableCell>
+                            <TableCell className="whitespace-nowrap">{book.copies}</TableCell>
+                            <TableCell className="whitespace-nowrap">
                               <Button 
                                 variant="outline" 
                                 size="sm" 
@@ -145,31 +146,31 @@ const LibraryPage: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="loans">
-              <CardContent>
-                <div className="rounded-md border">
+              <CardContent className="p-2 sm:p-4">
+                <div className="rounded-md border overflow-x-auto">
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Livre</TableHead>
-                        <TableHead className="hidden md:table-cell">Étudiant</TableHead>
-                        <TableHead className="hidden md:table-cell">Date d'emprunt</TableHead>
-                        <TableHead className="hidden md:table-cell">Date de retour</TableHead>
-                        <TableHead>Statut</TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead className="whitespace-nowrap">ID</TableHead>
+                        <TableHead className="whitespace-nowrap">Livre</TableHead>
+                        <TableHead className="hidden md:table-cell whitespace-nowrap">Étudiant</TableHead>
+                        <TableHead className="hidden lg:table-cell whitespace-nowrap">Date d'emprunt</TableHead>
+                        <TableHead className="hidden lg:table-cell whitespace-nowrap">Date de retour</TableHead>
+                        <TableHead className="whitespace-nowrap">Statut</TableHead>
+                        <TableHead className="whitespace-nowrap">Actions</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {filteredLoans.length > 0 ? (
                         filteredLoans.map((loan) => (
                           <TableRow key={loan.id}>
-                            <TableCell className="font-medium">{loan.id}</TableCell>
-                            <TableCell>{loan.book}</TableCell>
-                            <TableCell className="hidden md:table-cell">{loan.student}</TableCell>
-                            <TableCell className="hidden md:table-cell">{new Date(loan.borrowDate).toLocaleDateString()}</TableCell>
-                            <TableCell className="hidden md:table-cell">{new Date(loan.returnDate).toLocaleDateString()}</TableCell>
+                            <TableCell className="font-medium whitespace-nowrap">{loan.id}</TableCell>
+                            <TableCell className={isTablet ? "max-w-[150px] truncate" : ""}>{loan.book}</TableCell>
+                            <TableCell className="hidden md:table-cell whitespace-nowrap">{loan.student}</TableCell>
+                            <TableCell className="hidden lg:table-cell whitespace-nowrap">{new Date(loan.borrowDate).toLocaleDateString()}</TableCell>
+                            <TableCell className="hidden lg:table-cell whitespace-nowrap">{new Date(loan.returnDate).toLocaleDateString()}</TableCell>
                             <TableCell>
-                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
                                 loan.status === "En cours" 
                                   ? "bg-blue-100 text-blue-800" 
                                   : loan.status === "En retard"
@@ -179,7 +180,7 @@ const LibraryPage: React.FC = () => {
                                 {loan.status}
                               </span>
                             </TableCell>
-                            <TableCell>
+                            <TableCell className="whitespace-nowrap">
                               <Button 
                                 variant="outline" 
                                 size="sm" 
