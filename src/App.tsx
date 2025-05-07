@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { AuthProvider } from "@/contexts/AuthContext";
 
@@ -37,7 +37,7 @@ const App = () => (
               <Route path="/" element={<Dashboard />} />
               
               {/* Routes pour le module Étudiants */}
-              <Route path="/students" element={<Navigate to="/students/directory" replace />} />
+              <Route path="/students" element={<StudentsPage />} />
               <Route path="/students/new" element={<NewStudentPage />} />
               <Route path="/students/directory" element={<DirectoryPage />} />
               <Route path="/students/files" element={<StudentFilesPage />} />
