@@ -83,7 +83,7 @@ const StudentForm: React.FC = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-lg">
+    <div className="bg-white dark:bg-zinc-900 rounded-lg p-6">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-3 p-1 mb-6 bg-muted/50">
           <TabsTrigger 
