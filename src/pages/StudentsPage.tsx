@@ -107,8 +107,8 @@ const StudentsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Section Graphiques Statistiques */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Section Graphiques Statistiques - Modifiée pour afficher verticalement */}
+          <div className="grid grid-cols-1 gap-6">
             {/* Graphique par niveau */}
             <Card>
               <CardHeader className="pb-2">
