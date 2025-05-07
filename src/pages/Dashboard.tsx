@@ -20,13 +20,13 @@ const CalendarWidget = lazy(() => import('@/components/dashboard/CalendarWidget'
 const Dashboard: React.FC = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   
-  // Sample data for statistics
+  // Sample data for statistics with corrected trend values
   const statCards = [
     {
       title: "Étudiants",
       value: "324",
       change: "+12%",
-      trend: "up",
+      trend: "up" as const,
       icon: <Users className="h-5 w-5 text-blue-600" />,
       details: "L1: 120 | L2: 85 | L3: 60 | ESTIM ONLINE: 59"
     },
@@ -34,7 +34,7 @@ const Dashboard: React.FC = () => {
       title: "Bibliothèque",
       value: "1,256",
       change: "+8 nouveaux",
-      trend: "up",
+      trend: "up" as const,
       icon: <Library className="h-5 w-5 text-purple-600" />,
       details: "Livres disponibles"
     },
@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
       title: "Finances",
       value: "18,400 €",
       change: "+5,200 € aujourd'hui",
-      trend: "up",
+      trend: "up" as const,
       icon: <BookText className="h-5 w-5 text-green-600" />,
       details: "Entrées journalières"
     }

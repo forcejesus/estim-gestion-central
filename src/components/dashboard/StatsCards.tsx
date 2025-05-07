@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TrendingUp } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 
 type StatCard = {
   title: string;
@@ -42,6 +42,8 @@ const StatsCards: React.FC<StatsCardsProps> = ({ statCards }) => {
               }`}
             >
               {stat.trend === "up" && <TrendingUp size={14} className="mr-1" />}
+              {stat.trend === "down" && <TrendingDown size={14} className="mr-1" />}
+              {stat.trend === "neutral" && <Minus size={14} className="mr-1" />}
               {stat.change}
             </p>
             <p className="text-xs text-muted-foreground mt-1">{stat.details}</p>
