@@ -69,8 +69,6 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({ collapsed }) => {
           <NavItem to="/students/new" label="Nouvelle inscription" icon={<FilePlus size={16} />} isActive={isActive("/students/new")} isSubmenuItem={true} />
           <NavItem to="/students/directory" label="Annuaire" icon={<Users size={16} />} isActive={isActive("/students/directory")} isSubmenuItem={true} />
           <NavItem to="/students/files" label="Dossiers étudiants" icon={<FileText size={16} />} isActive={isActive("/students/files")} isSubmenuItem={true} />
-          <NavItem to="/students/grades" label="Relevés de notes" icon={<ClipboardList size={16} />} isActive={isActive("/students/grades")} isSubmenuItem={true} />
-          <NavItem to="/students/certificates" label="Attestations" icon={<Award size={16} />} isActive={isActive("/students/certificates")} isSubmenuItem={true} />
         </div>
       </div>
       
