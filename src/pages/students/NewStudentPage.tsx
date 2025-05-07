@@ -2,10 +2,12 @@
 import React, { useState } from "react";
 import Header from "@/components/layout/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { UserPlus, Check, GraduationCap } from "lucide-react";
+import { UserPlus, Check, GraduationCap, ArrowLeft } from "lucide-react";
 import StudentForm from "@/components/students/StudentForm";
 import CsvImportDialog from "@/components/students/CsvImportDialog";
 import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const NewStudentPage: React.FC = () => {
   const [importSuccess, setImportSuccess] = useState(false);
@@ -30,14 +32,22 @@ const NewStudentPage: React.FC = () => {
       <Header title="Nouvelle inscription" />
       <div className="flex-1 overflow-auto p-6 bg-muted/20">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-8 text-center">
-            <div className="inline-block p-3 rounded-full bg-primary/10 mb-4">
-              <GraduationCap className="h-12 w-12 text-primary" />
+          <div className="mb-6">
+            <Link to="/students">
+              <Button variant="ghost" className="gap-2 mb-4 pl-0">
+                <ArrowLeft size={18} />
+                Retour au tableau de bord
+              </Button>
+            </Link>
+            <div className="text-center">
+              <div className="inline-block p-3 rounded-full bg-primary/10 mb-4">
+                <GraduationCap className="h-12 w-12 text-primary" />
+              </div>
+              <h1 className="text-3xl font-bold tracking-tight mb-2">Inscription d'un nouvel étudiant</h1>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Remplissez les informations ci-dessous pour inscrire un nouvel étudiant à ESTIM ou utilisez l'option d'importation CSV pour inscrire plusieurs étudiants à la fois.
+              </p>
             </div>
-            <h1 className="text-3xl font-bold tracking-tight mb-2">Inscription d'un nouvel étudiant</h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Remplissez les informations ci-dessous pour inscrire un nouvel étudiant à ESTIM ou utilisez l'option d'importation CSV pour inscrire plusieurs étudiants à la fois.
-            </p>
           </div>
           
           <Card className="border-t-4 border-t-primary shadow-lg overflow-hidden">

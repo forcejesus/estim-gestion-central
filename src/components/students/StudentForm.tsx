@@ -210,7 +210,10 @@ const StudentForm: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="academic" className="mt-0 animate-fade-in">
-              <AcademicInfoTab form={form} />
+              <AcademicInfoTab 
+                form={form} 
+                navigateToBackTab={navigateToNextTab}
+              />
             </TabsContent>
           </form>
         </Form>

@@ -15,25 +15,32 @@ interface PersonalInfoTabProps {
 const PersonalInfoTab: React.FC<PersonalInfoTabProps> = ({ 
   form, 
   photoPreview, 
-  handlePhotoChange, 
-  navigateToNextTab 
+  handlePhotoChange,
+  navigateToNextTab
 }) => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
+      <div className="bg-primary/5 px-6 py-4 -mx-6 mb-8 border-l-4 border-primary rounded-r-md">
+        <h3 className="font-medium text-lg text-primary">Informations personnelles</h3>
+        <p className="text-muted-foreground">Saisissez les informations d'identité de l'étudiant.</p>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <PhotoUploadSection 
-          photoPreview={photoPreview} 
-          handlePhotoChange={handlePhotoChange} 
-          form={form} 
-        />
+        <div className="md:col-span-1">
+          <PhotoUploadSection 
+            photoPreview={photoPreview} 
+            handlePhotoChange={handlePhotoChange} 
+          />
+        </div>
         
-        <div className="md:col-span-2 bg-white dark:bg-zinc-800/50 rounded-lg p-6 shadow-sm">
-          <h3 className="text-xl font-medium mb-4 text-primary">Informations personnelles</h3>
+        <div className="md:col-span-2">
           <PersonalInfoFields form={form} />
         </div>
       </div>
-      
-      <NextButton onClick={() => navigateToNextTab('contact')} />
+
+      <NextButton 
+        onClick={() => navigateToNextTab("contact")}
+      />
     </div>
   );
 };
