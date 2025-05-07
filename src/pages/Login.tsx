@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -49,7 +50,7 @@ const Login: React.FC = () => {
           <div className="w-full md:w-1/2 bg-estim-green p-10 flex flex-col items-center justify-center text-white">
             <div className="mb-8 flex flex-col items-center">
               <div className="animate-float">
-                <EstimLogo size={160} />
+                <EstimLogo size={180} />
               </div>
               <h1 className="text-4xl font-bold mt-6 text-center animate-slide-up">ESTIM GESTION</h1>
               <p className="mt-3 text-center opacity-90 max-w-xs text-lg">

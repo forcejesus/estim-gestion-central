@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Menu } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import EstimLogo from "@/components/EstimLogo";
 
 type SidebarHeaderProps = {
   collapsed: boolean;
@@ -16,17 +17,15 @@ const SidebarHeader: React.FC<SidebarHeaderProps> = ({ collapsed, setCollapsed }
       <div className="p-4 flex items-center justify-between">
         {!collapsed && (
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow-sm">
-              <span className="text-white font-bold">E</span>
-            </div>
+            <EstimLogo size={32} />
             <div>
               <h1 className="text-lg font-bold text-zinc-900 dark:text-white">ESTIM</h1>
             </div>
           </div>
         )}
         {collapsed && (
-          <div className="h-8 w-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow-sm mx-auto">
-            <span className="text-white font-bold">E</span>
+          <div className="mx-auto">
+            <EstimLogo size={32} />
           </div>
         )}
         {!collapsed && (
