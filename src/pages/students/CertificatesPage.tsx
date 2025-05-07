@@ -231,7 +231,7 @@ const CertificatesPage: React.FC = () => {
                 <SelectValue placeholder="Type d'attestation" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Tous les types</SelectItem>
+                <SelectItem value="type-all">Tous les types</SelectItem>
                 <SelectItem value="Attestation de scolarité">Attestation de scolarité</SelectItem>
                 <SelectItem value="Attestation de réussite">Attestation de réussite</SelectItem>
                 <SelectItem value="Attestation de stage">Attestation de stage</SelectItem>
@@ -244,7 +244,7 @@ const CertificatesPage: React.FC = () => {
                 <SelectValue placeholder="Statut" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Tous les statuts</SelectItem>
+                <SelectItem value="status-all">Tous les statuts</SelectItem>
                 <SelectItem value="Délivré">Délivré</SelectItem>
                 <SelectItem value="En cours">En cours</SelectItem>
                 <SelectItem value="En attente">En attente</SelectItem>

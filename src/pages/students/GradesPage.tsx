@@ -149,7 +149,7 @@ const GradesPage: React.FC = () => {
                 <SelectValue placeholder="Année académique" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Toutes les années</SelectItem>
+                <SelectItem value="all-years">Toutes les années</SelectItem>
                 <SelectItem value="2022-2023">2022-2023</SelectItem>
                 <SelectItem value="2021-2022">2021-2022</SelectItem>
                 <SelectItem value="2020-2021">2020-2021</SelectItem>
@@ -161,7 +161,7 @@ const GradesPage: React.FC = () => {
                 <SelectValue placeholder="Semestre" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Tous les semestres</SelectItem>
+                <SelectItem value="all-semesters">Tous les semestres</SelectItem>
                 <SelectItem value="Semestre 1">Semestre 1</SelectItem>
                 <SelectItem value="Semestre 2">Semestre 2</SelectItem>
                 <SelectItem value="Semestre 3">Semestre 3</SelectItem>

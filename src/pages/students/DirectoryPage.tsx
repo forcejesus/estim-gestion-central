@@ -116,7 +116,7 @@ const DirectoryPage: React.FC = () => {
                     <SelectValue placeholder="Département" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Tous les départements</SelectItem>
+                    <SelectItem value="all">Tous les départements</SelectItem>
                     <SelectItem value="Informatique">Informatique</SelectItem>
                     <SelectItem value="Gestion">Gestion</SelectItem>
                     <SelectItem value="Marketing">Marketing</SelectItem>
@@ -129,7 +129,7 @@ const DirectoryPage: React.FC = () => {
                     <SelectValue placeholder="Statut" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Tous les statuts</SelectItem>
+                    <SelectItem value="all">Tous les statuts</SelectItem>
                     <SelectItem value="Actif">Actif</SelectItem>
                     <SelectItem value="En attente">En attente</SelectItem>
                     <SelectItem value="Inactif">Inactif</SelectItem>
