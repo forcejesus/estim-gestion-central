@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Form } from "@/components/ui/form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -22,7 +21,18 @@ import { AlertCircle } from "lucide-react";
 const studentSchema = z.object({
   prenom: z.string().min(2, "Le prénom doit contenir au moins 2 caractères"),
   nom: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
-  date_naissance: z.string().min(1, "La date de naissance est requise"),
+  date_naissance: z.string().min(1, "La date de naissance est requise").refine((date) => {
+    // Basic date validation (YYYY-MM-DD format)
+    if (!date.match(/^\d{4}-\d{2}-\d{2}$/)) return false;
+    
+    const parsedDate = new Date(date);
+    const today = new Date();
+    
+    // Check if date is valid and not in the future
+    return !isNaN(parsedDate.getTime()) && 
+           parsedDate < today && 
+           parsedDate > new Date('1940-01-01');
+  }, "La date de naissance doit être valide et comprise entre 1940 et aujourd'hui"),
   lieu_naissance: z.string().min(1, "Le lieu de naissance est requis"),
   sexe: z.string().min(1, "Le genre est requis"),
   nationalite: z.string().min(1, "La nationalité est requise"),
@@ -89,18 +99,37 @@ const StudentForm: React.FC = () => {
     }
   };
 
-  // Validation avant la navigation entre les tabs
+  // Validation before the navigation between the tabs
   const validateTabNavigation = (targetTabId: string) => {
     let fieldsToValidate: (keyof StudentFormValues)[] = [];
     const errors: string[] = [];
     
-    // Déterminer quels champs valider en fonction de l'onglet actuel
+    // Determine which fields to validate based on the current tab
     if (activeTab === "personal") {
       fieldsToValidate = ["prenom", "nom", "date_naissance", "lieu_naissance", "sexe", "nationalite"];
       
-      // Valider aussi la photo qui est un cas spécial
+      // Also validate the photo which is a special case
       if (!form.getValues("photo")) {
         errors.push("La photo est requise");
+      }
+      
+      // Additional validation for date_naissance
+      const birthDate = form.getValues("date_naissance");
+      if (birthDate) {
+        try {
+          const parsedDate = new Date(birthDate);
+          const today = new Date();
+          
+          if (isNaN(parsedDate.getTime())) {
+            errors.push("La date de naissance n'est pas valide");
+          } else if (parsedDate > today) {
+            errors.push("La date de naissance ne peut pas être dans le futur");
+          } else if (parsedDate < new Date('1940-01-01')) {
+            errors.push("La date de naissance doit être postérieure à 1940");
+          }
+        } catch (e) {
+          errors.push("Format de date invalide");
+        }
       }
     } 
     else if (activeTab === "contact") {
@@ -133,7 +162,7 @@ const StudentForm: React.FC = () => {
     return true;
   };
 
-  // Navigation entre les tabs
+  // Navigation between the tabs
   const navigateToNextTab = (tabId: string) => {
     validateTabNavigation(tabId);
   };
