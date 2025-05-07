@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, FilePdf, Printer } from "lucide-react";
+import { ChevronLeft, FileText, Printer } from "lucide-react";
 
 interface ProfileActionButtonsProps {
   onExportClick: () => void;
@@ -28,7 +28,7 @@ const ProfileActionButtons: React.FC<ProfileActionButtonsProps> = ({
           className="gap-2"
           onClick={onExportClick}
         >
-          <FilePdf size={16} />
+          <FileText size={16} />
           Exporter le dossier
         </Button>
         
