@@ -19,7 +19,7 @@ const Index = () => {
   }, [navigate, user, isLoading]);
   
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-estim-green/10 to-estim-yellow/10 animated-gradient">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white">
       <div className="mb-6 animate-scale-up">
         <EstimLogo size={120} />
       </div>

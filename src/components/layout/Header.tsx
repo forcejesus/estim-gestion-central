@@ -2,14 +2,20 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
-import { Bell } from "lucide-react";
+import { Bell, LogOut } from "lucide-react";
+import { toast } from "sonner";
 
 interface HeaderProps {
   title: string;
 }
 
 const Header: React.FC<HeaderProps> = ({ title }) => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  
+  const handleLogout = () => {
+    logout();
+    toast.success("Déconnexion réussie");
+  };
   
   return (
     <header className="bg-background border-b border-estim-green/10 py-4 px-6 flex justify-between items-center">
@@ -24,6 +30,18 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
           <Bell size={20} />
           <span className="absolute top-0 right-0 w-2 h-2 bg-estim-yellow rounded-full"></span>
         </Button>
+        
+        {user && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-estim-green/20 text-estim-green hover:bg-estim-green/10"
+            onClick={handleLogout}
+          >
+            <LogOut size={16} className="mr-2" />
+            Déconnexion
+          </Button>
+        )}
       </div>
     </header>
   );
