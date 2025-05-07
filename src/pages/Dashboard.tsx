@@ -1,4 +1,3 @@
-
 import React, { useState, Suspense, lazy } from "react";
 import Header from "@/components/layout/Header";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -75,12 +74,12 @@ const Dashboard: React.FC = () => {
     { date: 'Ven', présence: 89, absence: 11 },
   ];
 
-  // Données pour les activités récentes
+  // Données pour les activités récentes - properly typed type property
   const recentActivities = [
     { 
       id: 1, 
       title: 'Mise à jour du programme L3 Informatique', 
-      type: 'update', 
+      type: 'update' as const, // using const assertion for type safety
       time: 'Il y a 15 minutes',
       user: 'Dr. Amal Ben Ahmed',
       details: 'Modifications du programme pour le semestre 2'
@@ -88,7 +87,7 @@ const Dashboard: React.FC = () => {
     { 
       id: 2, 
       title: 'Nouveau paiement enregistré', 
-      type: 'payment', 
+      type: 'payment' as const,
       time: 'Il y a 35 minutes',
       user: 'Karim Belhadj',
       details: 'Paiement trimestriel - 1200€'
@@ -96,7 +95,7 @@ const Dashboard: React.FC = () => {
     { 
       id: 3, 
       title: 'Calendrier des examens publié', 
-      type: 'calendar', 
+      type: 'calendar' as const,
       time: 'Il y a 2 heures',
       user: 'Administration',
       details: 'Session de rattrapage - Mai 2025'
@@ -104,7 +103,7 @@ const Dashboard: React.FC = () => {
     { 
       id: 4, 
       title: 'Nouvel emprunt bibliothèque', 
-      type: 'library', 
+      type: 'library' as const,
       time: 'Il y a 3 heures',
       user: 'Sarah Riahi',
       details: 'Retour prévu le 15/05/2025'
