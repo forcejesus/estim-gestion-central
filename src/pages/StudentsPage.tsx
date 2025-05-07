@@ -4,7 +4,6 @@ import Header from "@/components/layout/Header";
 import PageHeader from "@/components/students/dashboard/PageHeader";
 import FeatureCards from "@/components/students/dashboard/FeatureCards";
 import StatCards from "@/components/students/dashboard/StatCards";
-import LevelDistributionCards from "@/components/students/dashboard/LevelDistributionCards";
 import ProgramDistributionCards from "@/components/students/dashboard/ProgramDistributionCards";
 
 const StudentsPage: React.FC = () => {
@@ -14,15 +13,6 @@ const StudentsPage: React.FC = () => {
     newRegistrations: 42,
     pendingFiles: 18
   };
-
-  // Données pour la répartition par niveau
-  const levelData = [
-    { name: 'L1', count: 320 },
-    { name: 'L2', count: 245 },
-    { name: 'L3', count: 180 },
-    { name: 'M1', count: 65 },
-    { name: 'M2', count: 44 }
-  ];
 
   // Données pour la répartition par filière
   const programData = [
@@ -53,12 +43,6 @@ const StudentsPage: React.FC = () => {
             totalStudents={stats.totalStudents}
             newRegistrations={stats.newRegistrations}
             pendingFiles={stats.pendingFiles}
-          />
-
-          {/* Section Répartition par niveau */}
-          <LevelDistributionCards 
-            levelData={levelData}
-            totalStudents={stats.totalStudents}
           />
 
           {/* Section Répartition par filière */}

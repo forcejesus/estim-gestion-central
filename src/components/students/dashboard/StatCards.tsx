@@ -18,7 +18,7 @@ const StatCards: React.FC<StatCardsProps> = ({ totalStudents, newRegistrations, 
           </div>
           <div>
             <p className="text-muted-foreground text-sm">Total étudiants</p>
-            <p className="text-2xl font-bold">{totalStudents}</p>
+            <p className="text-3xl font-bold">{totalStudents}</p>
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@ const StatCards: React.FC<StatCardsProps> = ({ totalStudents, newRegistrations, 
           </div>
           <div>
             <p className="text-muted-foreground text-sm">Nouvelles inscriptions (30j)</p>
-            <p className="text-2xl font-bold">{newRegistrations}</p>
+            <p className="text-3xl font-bold">{newRegistrations}</p>
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@ const StatCards: React.FC<StatCardsProps> = ({ totalStudents, newRegistrations, 
           </div>
           <div>
             <p className="text-muted-foreground text-sm">Dossiers en attente</p>
-            <p className="text-2xl font-bold">{pendingFiles}</p>
+            <p className="text-3xl font-bold">{pendingFiles}</p>
           </div>
         </div>
       </div>
