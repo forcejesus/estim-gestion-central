@@ -145,21 +145,21 @@ const StudentForm: React.FC = () => {
           <TabsTrigger 
             value="personal" 
             id="personal-tab"
-            className="py-3 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="py-3 rounded-md text-base font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
           >
             Informations personnelles
           </TabsTrigger>
           <TabsTrigger 
             value="contact" 
             id="contact-tab"
-            className="py-3 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="py-3 rounded-md text-base font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
           >
             Coordonnées
           </TabsTrigger>
           <TabsTrigger 
             value="academic" 
             id="academic-tab"
-            className="py-3 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="py-3 rounded-md text-base font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
           >
             Informations académiques
           </TabsTrigger>
@@ -194,18 +194,18 @@ const StudentForm: React.FC = () => {
         <AlertDialogContent className="max-w-md">
           <div className="flex items-center gap-3 mb-2 text-destructive">
             <AlertCircle className="h-6 w-6" />
-            <AlertDialogTitle>Informations incomplètes</AlertDialogTitle>
+            <AlertDialogTitle className="text-xl">Informations incomplètes</AlertDialogTitle>
           </div>
-          <AlertDialogDescription className="mt-4 space-y-3">
-            <p className="text-sm text-muted-foreground">Veuillez compléter les informations suivantes avant de continuer :</p>
+          <AlertDialogDescription className="mt-4 space-y-3 text-base">
+            <p className="text-base text-muted-foreground">Veuillez compléter les informations suivantes avant de continuer :</p>
             <ul className="list-disc pl-5 mt-2 space-y-1.5">
               {validationErrors.map((error, index) => (
-                <li key={index} className="text-sm text-destructive">{error}</li>
+                <li key={index} className="text-base text-destructive">{error}</li>
               ))}
             </ul>
           </AlertDialogDescription>
           <AlertDialogFooter className="mt-6">
-            <AlertDialogAction className="w-full sm:w-auto">Compris</AlertDialogAction>
+            <AlertDialogAction className="w-full sm:w-auto text-base h-11 px-6">Compris</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
