@@ -3,7 +3,6 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
 
 type NavItemProps = {
   to: string;
@@ -22,7 +21,7 @@ const NavItem: React.FC<NavItemProps> = ({
   expanded = false,
   isSubmenuItem = false
 }) => {
-  // For submenu items, render a smaller button
+  // Pour submenu items, render a smaller button
   if (isSubmenuItem) {
     return (
       <Link to={to} className="block">
@@ -43,7 +42,7 @@ const NavItem: React.FC<NavItemProps> = ({
     );
   }
   
-  // Standard nav item without submenu
+  // Standard nav item without submenu - improved section header style
   return (
     <Link to={to} className="block mb-1">
       <Button
@@ -52,7 +51,7 @@ const NavItem: React.FC<NavItemProps> = ({
           "w-full justify-start gap-2 font-medium rounded-lg transition-all",
           isActive 
             ? "bg-sidebar-accent/90 text-sidebar-accent-foreground hover:bg-sidebar-accent" 
-            : "text-sidebar-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800"
         )}
       >
         <div className={cn(
@@ -61,8 +60,7 @@ const NavItem: React.FC<NavItemProps> = ({
         )}>
           {icon}
         </div>
-        <span>{label}</span>
-        {expanded && <ChevronDown size={16} className="ml-auto transform rotate-180" />}
+        <span className="font-semibold">{label}</span>
       </Button>
     </Link>
   );
