@@ -4,7 +4,7 @@ import Header from "@/components/layout/Header";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { 
   Users, BookText, Library,
-  TrendingUp, PieChart, BarChart, ChevronRight, Loader2,
+  TrendingUp, ChevronRight, Loader2,
   LineChart, ArrowUpRight, ArrowDownRight, Ban, CheckCircle2,
   Clock, Bell, Info
 } from "lucide-react";
@@ -16,8 +16,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 // Lazy loaded chart components
 const StatsCards = lazy(() => import('@/components/dashboard/StatsCards'));
-const LevelDistributionChart = lazy(() => import('@/components/dashboard/LevelDistributionChart'));
-const ProgramDistributionChart = lazy(() => import('@/components/dashboard/ProgramDistributionChart'));
 const ClassScheduleTable = lazy(() => import('@/components/dashboard/ClassScheduleTable'));
 
 const Dashboard: React.FC = () => {
@@ -115,63 +113,6 @@ const Dashboard: React.FC = () => {
         </Suspense>
 
         <div className="grid grid-cols-12 gap-6 mt-6">
-          {/* Charts section with Suspense for lazy loading */}
-          <Suspense fallback={
-            <Card className="col-span-12 md:col-span-6 lg:col-span-6 win11-card animate-pulse">
-              <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <Skeleton className="h-6 w-40 mb-2" />
-                  <Skeleton className="h-4 w-32" />
-                </div>
-                <Skeleton className="h-8 w-8 rounded" />
-              </CardHeader>
-              <CardContent className="flex items-center justify-center min-h-[250px]">
-                <Loader2 className="h-10 w-10 animate-spin text-muted-foreground" />
-              </CardContent>
-            </Card>
-          }>
-            <Card className="col-span-12 md:col-span-6 lg:col-span-6 win11-card win11-enter">
-              <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <CardTitle className="text-xl font-semibold">Répartition par niveau</CardTitle>
-                  <CardDescription>Distribution des étudiants</CardDescription>
-                </div>
-                <PieChart className="h-5 w-5 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <LevelDistributionChart className="" />
-              </CardContent>
-            </Card>
-          </Suspense>
-
-          <Suspense fallback={
-            <Card className="col-span-12 md:col-span-6 lg:col-span-6 win11-card animate-pulse">
-              <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <Skeleton className="h-6 w-40 mb-2" />
-                  <Skeleton className="h-4 w-32" />
-                </div>
-                <Skeleton className="h-8 w-8 rounded" />
-              </CardHeader>
-              <CardContent className="flex items-center justify-center min-h-[250px]">
-                <Loader2 className="h-10 w-10 animate-spin text-muted-foreground" />
-              </CardContent>
-            </Card>
-          }>
-            <Card className="col-span-12 md:col-span-6 lg:col-span-6 win11-card win11-enter" style={{animationDelay: "0.1s"}}>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <CardTitle className="text-xl font-semibold">Répartition par filière</CardTitle>
-                  <CardDescription>Distribution des programmes</CardDescription>
-                </div>
-                <BarChart className="h-5 w-5 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <ProgramDistributionChart className="" />
-              </CardContent>
-            </Card>
-          </Suspense>
-
           {/* Class Schedule Table - Full Width */}
           <Suspense fallback={
             <Card className="col-span-12 win11-card animate-pulse">
@@ -197,10 +138,6 @@ const Dashboard: React.FC = () => {
                   <CardTitle className="text-xl font-semibold">Planning des cours</CardTitle>
                   <CardDescription>Cours programmés pour cette semaine</CardDescription>
                 </div>
-                <Button variant="outline" size="sm" className="win11-button">
-                  Voir tout
-                  <ChevronRight className="ml-1 h-4 w-4" />
-                </Button>
               </CardHeader>
               <CardContent>
                 <ClassScheduleTable className="" />
