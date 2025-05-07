@@ -1,28 +1,26 @@
 
 import React from "react";
-import StudentPhotoUpload from "../../StudentPhotoUpload";
 import { UseFormReturn } from "react-hook-form";
+import StudentPhotoUpload from "@/components/students/StudentPhotoUpload";
 
-interface PhotoUploadSectionProps {
+export interface PhotoUploadSectionProps {
   photoPreview: string | null;
   handlePhotoChange: (files: FileList | null) => void;
   form: UseFormReturn<any>;
 }
 
-const PhotoUploadSection: React.FC<PhotoUploadSectionProps> = ({ 
-  photoPreview, 
-  handlePhotoChange,
-  form 
-}) => {
+const PhotoUploadSection: React.FC<PhotoUploadSectionProps> = ({ photoPreview, handlePhotoChange, form }) => {
   return (
-    <div className="md:col-span-1 bg-muted/30 rounded-lg p-6 flex flex-col items-center justify-center">
+    <div>
+      <h3 className="text-lg font-medium mb-4">Photo d'identité</h3>
       <StudentPhotoUpload 
         photoPreview={photoPreview} 
-        onPhotoChange={(files) => {
-          handlePhotoChange(files);
-          form.setValue('photo', files as unknown as FileList);
-        }} 
+        onPhotoChange={handlePhotoChange} 
       />
+      <div className="text-xs text-muted-foreground mt-4 bg-muted/30 p-3 rounded-md">
+        <p>La photo d'identité permettra de générer la carte étudiant.</p>
+        <p className="mt-1">Utilisez une photo claire avec un fond uni.</p>
+      </div>
     </div>
   );
 };

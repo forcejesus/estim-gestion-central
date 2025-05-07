@@ -29,7 +29,8 @@ const PersonalInfoTab: React.FC<PersonalInfoTabProps> = ({
         <div className="md:col-span-1">
           <PhotoUploadSection 
             photoPreview={photoPreview} 
-            handlePhotoChange={handlePhotoChange} 
+            handlePhotoChange={handlePhotoChange}
+            form={form} 
           />
         </div>
         
