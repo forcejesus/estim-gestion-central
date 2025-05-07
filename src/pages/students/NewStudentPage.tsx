@@ -28,20 +28,20 @@ const NewStudentPage: React.FC = () => {
   return (
     <>
       <Header title="Nouvelle inscription" />
-      <div className="flex-1 overflow-auto p-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-6 text-center">
-            <div className="inline-block p-3 rounded-full bg-primary/10 mb-3">
-              <GraduationCap className="h-10 w-10 text-primary" />
+      <div className="flex-1 overflow-auto p-6 bg-muted/20">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-8 text-center">
+            <div className="inline-block p-3 rounded-full bg-primary/10 mb-4">
+              <GraduationCap className="h-12 w-12 text-primary" />
             </div>
-            <h1 className="text-3xl font-bold tracking-tight">Inscription d'un nouvel étudiant</h1>
-            <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
+            <h1 className="text-3xl font-bold tracking-tight mb-2">Inscription d'un nouvel étudiant</h1>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               Remplissez les informations ci-dessous pour inscrire un nouvel étudiant à ESTIM ou utilisez l'option d'importation CSV pour inscrire plusieurs étudiants à la fois.
             </p>
           </div>
           
-          <Card className="border-t-4 border-t-primary shadow-md">
-            <CardHeader>
+          <Card className="border-t-4 border-t-primary shadow-lg overflow-hidden">
+            <CardHeader className="bg-white dark:bg-zinc-900 border-b">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <UserPlus className="h-6 w-6 text-primary" />
@@ -50,11 +50,11 @@ const NewStudentPage: React.FC = () => {
                 <CsvImportDialog onSuccess={handleImportSuccess} />
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-0">
               {importSuccess ? (
-                <div className="flex flex-col items-center justify-center py-10 bg-primary/5 rounded-lg">
+                <div className="flex flex-col items-center justify-center py-16 bg-primary/5">
                   <div className="bg-primary/15 rounded-full p-5 mb-4 animate-pulse">
-                    <Check className="h-14 w-14 text-primary" />
+                    <Check className="h-16 w-16 text-primary" />
                   </div>
                   <h3 className="text-2xl font-medium mb-2">Importation réussie!</h3>
                   <p className="text-muted-foreground text-center max-w-md">

@@ -1,6 +1,6 @@
 
-import React, { useState } from "react";
-import { UserPlus, Upload, Camera } from "lucide-react";
+import React from "react";
+import { Camera, Upload } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -13,15 +13,15 @@ interface StudentPhotoUploadProps {
 
 const StudentPhotoUpload: React.FC<StudentPhotoUploadProps> = ({ photoPreview, onPhotoChange }) => {
   return (
-    <div className="flex flex-col items-center mb-6 space-y-2">
+    <div className="flex flex-col items-center space-y-3">
       <div className="relative">
-        <Avatar className="w-32 h-32 border-2 border-primary/20">
+        <Avatar className="w-36 h-36 border-2 border-primary/20 shadow-md">
           {photoPreview ? (
             <AvatarImage src={photoPreview} alt="Photo d'étudiant" />
           ) : (
-            <AvatarFallback className="bg-muted flex items-center justify-center text-muted-foreground">
+            <AvatarFallback className="bg-muted/70 flex items-center justify-center text-muted-foreground">
               <div className="flex flex-col items-center justify-center">
-                <Camera size={40} className="opacity-70" />
+                <Camera size={42} className="opacity-70" />
                 <span className="text-xs mt-1">Photo</span>
               </div>
             </AvatarFallback>
@@ -39,9 +39,9 @@ const StudentPhotoUpload: React.FC<StudentPhotoUploadProps> = ({ photoPreview, o
             <TooltipTrigger asChild>
               <label 
                 htmlFor="photo"
-                className="absolute bottom-0 right-0 bg-primary text-white rounded-full p-1.5 cursor-pointer shadow-md hover:bg-primary/90 transition-colors"
+                className="absolute bottom-0 right-0 bg-primary text-white rounded-full p-2 cursor-pointer shadow-md hover:bg-primary/90 transition-colors"
               >
-                <Upload size={16} />
+                <Upload size={18} />
               </label>
             </TooltipTrigger>
             <TooltipContent>

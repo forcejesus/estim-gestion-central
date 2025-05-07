@@ -71,82 +71,85 @@ const AcademicInfoTab: React.FC<AcademicInfoTabProps> = ({ form }) => {
 
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField
-          control={form.control}
-          name="filiere"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-base font-medium">Filière</FormLabel>
-              <Select
-                onValueChange={(value) => {
-                  field.onChange(value);
-                  setSelectedFiliere(value);
-                }}
-                defaultValue={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger className="h-11">
-                    <SelectValue placeholder="Sélectionnez une filière" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="informatique">Informatique</SelectItem>
-                  <SelectItem value="gestion">Gestion</SelectItem>
-                  <SelectItem value="marketing">Marketing</SelectItem>
-                  <SelectItem value="commerce">Commerce</SelectItem>
-                  <SelectItem value="finance">Finance</SelectItem>
-                  <SelectItem value="communication">Communication</SelectItem>
-                  <SelectItem value="rh">Ressources Humaines</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <div className="bg-white dark:bg-zinc-800/50 rounded-lg p-6 shadow-sm">
+        <h3 className="text-lg font-medium mb-4 text-primary">Informations académiques</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <FormField
+            control={form.control}
+            name="filiere"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-sm font-medium">Filière</FormLabel>
+                <Select
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    setSelectedFiliere(value);
+                  }}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className="h-10 bg-background">
+                      <SelectValue placeholder="Sélectionnez une filière" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="informatique">Informatique</SelectItem>
+                    <SelectItem value="gestion">Gestion</SelectItem>
+                    <SelectItem value="marketing">Marketing</SelectItem>
+                    <SelectItem value="commerce">Commerce</SelectItem>
+                    <SelectItem value="finance">Finance</SelectItem>
+                    <SelectItem value="communication">Communication</SelectItem>
+                    <SelectItem value="rh">Ressources Humaines</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="niveau"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-base font-medium">Niveau</FormLabel>
-              <Select
-                onValueChange={(value) => {
-                  field.onChange(value);
-                  setSelectedNiveau(value);
-                }}
-                defaultValue={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger className="h-11">
-                    <SelectValue placeholder="Sélectionnez un niveau" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="l1">Licence 1</SelectItem>
-                  <SelectItem value="l2">Licence 2</SelectItem>
-                  <SelectItem value="l3">Licence 3</SelectItem>
-                  <SelectItem value="estim_online">ESTIM ONLINE</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="niveau"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-sm font-medium">Niveau</FormLabel>
+                <Select
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    setSelectedNiveau(value);
+                  }}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className="h-10 bg-background">
+                      <SelectValue placeholder="Sélectionnez un niveau" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="l1">Licence 1</SelectItem>
+                    <SelectItem value="l2">Licence 2</SelectItem>
+                    <SelectItem value="l3">Licence 3</SelectItem>
+                    <SelectItem value="estim_online">ESTIM ONLINE</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <div>
-          <FormLabel htmlFor="matricule" className="text-base font-medium">Matricule</FormLabel>
-          <Input id="matricule" placeholder="Généré automatiquement" className="h-11 bg-muted/50" disabled />
-          <p className="text-xs text-muted-foreground mt-1">
-            Le matricule sera généré automatiquement lors de la validation
-          </p>
+          <div className="md:col-span-2">
+            <FormLabel htmlFor="matricule" className="text-sm font-medium">Matricule</FormLabel>
+            <Input id="matricule" placeholder="Généré automatiquement" className="h-10 bg-muted/50" disabled />
+            <p className="text-xs text-muted-foreground mt-1">
+              Le matricule sera généré automatiquement lors de la validation
+            </p>
+          </div>
         </div>
       </div>
 
-      <Card className="p-4 bg-primary/5 border-primary/20">
-        <h3 className="font-semibold text-lg mb-2">Frais de scolarité</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <Card className="p-5 bg-primary/5 border-primary/20 shadow-sm">
+        <h3 className="font-medium text-lg mb-3 text-primary">Frais de scolarité</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 bg-white/50 dark:bg-zinc-900/50 p-4 rounded-lg">
           <div>
             <p className="text-sm text-muted-foreground">Formation sélectionnée:</p>
             <p className="font-medium">
@@ -166,8 +169,8 @@ const AcademicInfoTab: React.FC<AcademicInfoTabProps> = ({ form }) => {
         </div>
       </Card>
 
-      <div className="flex justify-end mt-6">
-        <Button type="submit" className="gap-2 h-11 px-6">
+      <div className="flex justify-end mt-8">
+        <Button type="submit" className="gap-2 h-11 px-8 bg-primary hover:bg-primary/90">
           <Save size={18} />
           <span>Enregistrer l'inscription</span>
         </Button>

@@ -83,27 +83,27 @@ const StudentForm: React.FC = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-lg p-6">
+    <div className="bg-gradient-to-b from-white to-zinc-50 dark:from-zinc-900 dark:to-zinc-950 rounded-xl p-8 shadow-md">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 p-1 mb-6 bg-muted/50">
+        <TabsList className="grid w-full grid-cols-3 mb-8 bg-muted/30 rounded-lg p-1.5">
           <TabsTrigger 
             value="personal" 
             id="personal-tab"
-            className="py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="py-3 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
           >
             Informations personnelles
           </TabsTrigger>
           <TabsTrigger 
             value="contact" 
             id="contact-tab"
-            className="py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="py-3 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
           >
             Coordonnées
           </TabsTrigger>
           <TabsTrigger 
             value="academic" 
             id="academic-tab"
-            className="py-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="py-3 rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
           >
             Informations académiques
           </TabsTrigger>
@@ -111,7 +111,7 @@ const StudentForm: React.FC = () => {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <TabsContent value="personal" className="mt-0">
+            <TabsContent value="personal" className="mt-0 animate-fade-in">
               <PersonalInfoTab 
                 form={form} 
                 photoPreview={photoPreview} 
@@ -120,14 +120,14 @@ const StudentForm: React.FC = () => {
               />
             </TabsContent>
 
-            <TabsContent value="contact" className="mt-0">
+            <TabsContent value="contact" className="mt-0 animate-fade-in">
               <ContactInfoTab 
                 form={form} 
                 navigateToNextTab={navigateToNextTab}
               />
             </TabsContent>
 
-            <TabsContent value="academic" className="mt-0">
+            <TabsContent value="academic" className="mt-0 animate-fade-in">
               <AcademicInfoTab form={form} />
             </TabsContent>
           </form>
