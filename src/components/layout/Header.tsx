@@ -2,23 +2,32 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
-import { Bell, LogOut, Search, User, Settings, Moon, Sun } from "lucide-react";
+import { Bell, Search, User, Settings, Moon, Sun, UserSearch } from "lucide-react";
 import { toast } from "sonner";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface HeaderProps {
   title: string;
 }
 
 const Header: React.FC<HeaderProps> = ({ title }) => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const [isDarkMode, setIsDarkMode] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState("");
   
-  const handleLogout = () => {
-    logout();
-    toast.success("Déconnexion réussie");
-  };
-
   const toggleDarkMode = () => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
@@ -35,19 +44,17 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
     setIsDarkMode(shouldBeDark);
     document.documentElement.classList.toggle('dark', shouldBeDark);
   }, []);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.info(`Recherche: ${searchQuery}`);
+    setSearchQuery("");
+  };
   
   return (
     <header className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 py-3 px-6 flex justify-between items-center shadow-sm">
       <div className="flex items-center gap-8">
         <h1 className="text-xl font-bold text-zinc-900 dark:text-white">{title}</h1>
-        
-        <div className="relative hidden md:block max-w-md">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input 
-            placeholder="Rechercher..." 
-            className="pl-10 w-full max-w-xs h-9 bg-zinc-100/50 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-700 rounded-lg"
-          />
-        </div>
       </div>
 
       <div className="flex items-center gap-3">
@@ -60,6 +67,99 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
           {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
         </Button>
         
+        <Drawer>
+          <DrawerTrigger asChild>
+            <Button 
+              size="icon" 
+              variant="ghost"
+              className="rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 h-9 w-9"
+            >
+              <UserSearch size={18} />
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent className="w-full sm:max-w-md mx-auto">
+            <DrawerHeader>
+              <DrawerTitle>Rechercher un étudiant</DrawerTitle>
+              <DrawerDescription>
+                Recherchez un étudiant par matricule ou filtrez par classe, filière et année académique.
+              </DrawerDescription>
+            </DrawerHeader>
+            <div className="px-4">
+              <Tabs defaultValue="matricule" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-4">
+                  <TabsTrigger value="matricule">Par Matricule</TabsTrigger>
+                  <TabsTrigger value="filtre">Par Filtre</TabsTrigger>
+                </TabsList>
+                <TabsContent value="matricule" className="space-y-4">
+                  <form onSubmit={handleSearch}>
+                    <div className="flex space-x-2">
+                      <Input 
+                        placeholder="Entrez le matricule de l'étudiant" 
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="flex-1"
+                      />
+                      <Button type="submit">Rechercher</Button>
+                    </div>
+                  </form>
+                </TabsContent>
+                <TabsContent value="filtre" className="space-y-4">
+                  <div className="grid gap-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="class">Classe</Label>
+                      <Select>
+                        <SelectTrigger id="class">
+                          <SelectValue placeholder="Sélectionner une classe" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="licence1">Licence 1</SelectItem>
+                          <SelectItem value="licence2">Licence 2</SelectItem>
+                          <SelectItem value="licence3">Licence 3</SelectItem>
+                          <SelectItem value="master1">Master 1</SelectItem>
+                          <SelectItem value="master2">Master 2</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="program">Filière</Label>
+                      <Select>
+                        <SelectTrigger id="program">
+                          <SelectValue placeholder="Sélectionner une filière" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="informatique">Informatique</SelectItem>
+                          <SelectItem value="gestion">Gestion</SelectItem>
+                          <SelectItem value="marketing">Marketing</SelectItem>
+                          <SelectItem value="finance">Finance</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="year">Année académique</Label>
+                      <Select>
+                        <SelectTrigger id="year">
+                          <SelectValue placeholder="Sélectionner une année" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="2024-2025">2024-2025</SelectItem>
+                          <SelectItem value="2023-2024">2023-2024</SelectItem>
+                          <SelectItem value="2022-2023">2022-2023</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <Button className="w-full">Rechercher</Button>
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
+            <DrawerFooter>
+              <DrawerClose asChild>
+                <Button variant="outline">Fermer</Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+
         <Button 
           size="icon" 
           variant="ghost"
@@ -76,18 +176,6 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
         >
           <Settings size={18} />
         </Button>
-        
-        {user && (
-          <Button
-            variant="outline"
-            size="sm"
-            className="ml-2 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg"
-            onClick={handleLogout}
-          >
-            <LogOut size={16} className="mr-2" />
-            Déconnexion
-          </Button>
-        )}
       </div>
     </header>
   );

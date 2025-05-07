@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { 
   Users, 
   BookOpen, 
@@ -55,62 +55,70 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({ collapsed }) => {
         isActive={isActive("/")} 
       />
       
-      <NavItem 
-        to="/students" 
-        icon={<Users size={18} />} 
-        label="Étudiants" 
-        isActive={isActive("/students")}
-        hasSubmenu={true}
-        submenuItems={[
-          { to: "/students/new", label: "Nouvelle inscription", icon: <FilePlus size={16} /> },
-          { to: "/students/directory", label: "Annuaire", icon: <Users size={16} /> },
-          { to: "/students/files", label: "Dossiers étudiants", icon: <FileText size={16} /> },
-          { to: "/students/grades", label: "Relevés de notes", icon: <ClipboardList size={16} /> },
-          { to: "/students/certificates", label: "Attestations", icon: <Award size={16} /> },
-        ]}
-      />
+      <div className="relative w-full mb-1">
+        <NavItem 
+          to="/students" 
+          icon={<Users size={18} />} 
+          label="Étudiants" 
+          isActive={isActive("/students")}
+          expanded={true}
+        />
+        <div className="pl-9 pt-1 pb-1 space-y-0.5">
+          <NavItem to="/students/new" label="Nouvelle inscription" icon={<FilePlus size={16} />} isActive={isActive("/students/new")} isSubmenuItem={true} />
+          <NavItem to="/students/directory" label="Annuaire" icon={<Users size={16} />} isActive={isActive("/students/directory")} isSubmenuItem={true} />
+          <NavItem to="/students/files" label="Dossiers étudiants" icon={<FileText size={16} />} isActive={isActive("/students/files")} isSubmenuItem={true} />
+          <NavItem to="/students/grades" label="Relevés de notes" icon={<ClipboardList size={16} />} isActive={isActive("/students/grades")} isSubmenuItem={true} />
+          <NavItem to="/students/certificates" label="Attestations" icon={<Award size={16} />} isActive={isActive("/students/certificates")} isSubmenuItem={true} />
+        </div>
+      </div>
       
-      <NavItem 
-        to="/finances" 
-        icon={<CreditCard size={18} />} 
-        label="Finances" 
-        isActive={isActive("/finances")}
-        hasSubmenu={true}
-        submenuItems={[
-          { to: "/finances/tuition", label: "Frais de scolarité", icon: <CreditCard size={16} /> },
-          { to: "/finances/payments", label: "Paiements", icon: <Receipt size={16} /> },
-          { to: "/finances/expenses", label: "Dépenses", icon: <BookText size={16} /> },
-          { to: "/finances/reports", label: "Rapports", icon: <PieChart size={16} /> },
-        ]}
-      />
+      <div className="relative w-full mb-1">
+        <NavItem 
+          to="/finances" 
+          icon={<CreditCard size={18} />} 
+          label="Finances" 
+          isActive={isActive("/finances")}
+          expanded={true}
+        />
+        <div className="pl-9 pt-1 pb-1 space-y-0.5">
+          <NavItem to="/finances/tuition" label="Frais de scolarité" icon={<CreditCard size={16} />} isActive={isActive("/finances/tuition")} isSubmenuItem={true} />
+          <NavItem to="/finances/payments" label="Paiements" icon={<Receipt size={16} />} isActive={isActive("/finances/payments")} isSubmenuItem={true} />
+          <NavItem to="/finances/expenses" label="Dépenses" icon={<BookText size={16} />} isActive={isActive("/finances/expenses")} isSubmenuItem={true} />
+          <NavItem to="/finances/reports" label="Rapports" icon={<PieChart size={16} />} isActive={isActive("/finances/reports")} isSubmenuItem={true} />
+        </div>
+      </div>
       
-      <NavItem 
-        to="/library" 
-        icon={<Library size={18} />} 
-        label="Bibliothèque" 
-        isActive={isActive("/library")}
-        hasSubmenu={true}
-        submenuItems={[
-          { to: "/library/catalog", label: "Catalogue", icon: <BookMarked size={16} /> },
-          { to: "/library/new-book", label: "Nouvel ouvrage", icon: <BookPlus size={16} /> },
-          { to: "/library/loans", label: "Emprunts", icon: <BookOpen size={16} /> },
-        ]}
-      />
+      <div className="relative w-full mb-1">
+        <NavItem 
+          to="/library" 
+          icon={<Library size={18} />} 
+          label="Bibliothèque" 
+          isActive={isActive("/library")}
+          expanded={true}
+        />
+        <div className="pl-9 pt-1 pb-1 space-y-0.5">
+          <NavItem to="/library/catalog" label="Catalogue" icon={<BookMarked size={16} />} isActive={isActive("/library/catalog")} isSubmenuItem={true} />
+          <NavItem to="/library/new-book" label="Nouvel ouvrage" icon={<BookPlus size={16} />} isActive={isActive("/library/new-book")} isSubmenuItem={true} />
+          <NavItem to="/library/loans" label="Emprunts" icon={<BookOpen size={16} />} isActive={isActive("/library/loans")} isSubmenuItem={true} />
+        </div>
+      </div>
       
-      <NavItem 
-        to="/academic" 
-        icon={<GraduationCap size={18} />} 
-        label="Scolarité" 
-        isActive={isActive("/academic")}
-        hasSubmenu={true}
-        submenuItems={[
-          { to: "/academic/programs", label: "Filières", icon: <BookOpen size={16} /> },
-          { to: "/academic/levels", label: "Niveaux", icon: <ChevronRight size={16} /> },
-          { to: "/academic/classes", label: "Classes", icon: <Users size={16} /> },
-          { to: "/academic/subjects", label: "Matières", icon: <BookText size={16} /> },
-          { to: "/academic/courses", label: "Cours en ligne", icon: <BookMarked size={16} /> },
-        ]}
-      />
+      <div className="relative w-full mb-1">
+        <NavItem 
+          to="/academic" 
+          icon={<GraduationCap size={18} />} 
+          label="Scolarité" 
+          isActive={isActive("/academic")}
+          expanded={true}
+        />
+        <div className="pl-9 pt-1 pb-1 space-y-0.5">
+          <NavItem to="/academic/programs" label="Filières" icon={<BookOpen size={16} />} isActive={isActive("/academic/programs")} isSubmenuItem={true} />
+          <NavItem to="/academic/levels" label="Niveaux" icon={<ChevronRight size={16} />} isActive={isActive("/academic/levels")} isSubmenuItem={true} />
+          <NavItem to="/academic/classes" label="Classes" icon={<Users size={16} />} isActive={isActive("/academic/classes")} isSubmenuItem={true} />
+          <NavItem to="/academic/subjects" label="Matières" icon={<BookText size={16} />} isActive={isActive("/academic/subjects")} isSubmenuItem={true} />
+          <NavItem to="/academic/courses" label="Cours en ligne" icon={<BookMarked size={16} />} isActive={isActive("/academic/courses")} isSubmenuItem={true} />
+        </div>
+      </div>
     </>
   );
 };
