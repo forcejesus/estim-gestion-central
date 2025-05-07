@@ -19,7 +19,8 @@ import {
   Download,
   MoreHorizontal,
   Phone,
-  User
+  User,
+  Eye
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
@@ -69,6 +70,10 @@ const DirectoryPage: React.FC = () => {
 
   const handleViewFile = (id: string) => {
     navigate(`/students/files/${id}`);
+  };
+  
+  const handleViewProfile = (id: string) => {
+    navigate(`/students/profile/${id}`);
   };
 
   const getInitials = (name: string) => {
@@ -151,13 +156,15 @@ const DirectoryPage: React.FC = () => {
                 <Card key={student.id} className="p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
-                      <Avatar className="h-14 w-14">
+                      <Avatar className="h-14 w-14 cursor-pointer" onClick={() => handleViewProfile(student.id)}>
                         <AvatarFallback className="bg-primary/10 text-primary">
                           {getInitials(student.name)}
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <h3 className="font-medium text-base">{student.name}</h3>
+                        <h3 className="font-medium text-base cursor-pointer hover:text-primary" onClick={() => handleViewProfile(student.id)}>
+                          {student.name}
+                        </h3>
                         <p className="text-xs text-muted-foreground">{student.id}</p>
                         <Badge className={`mt-1 ${getStatusColor(student.status)}`}>
                           {student.status}
@@ -172,6 +179,9 @@ const DirectoryPage: React.FC = () => {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={() => handleViewProfile(student.id)}>
+                          <Eye className="mr-2 h-4 w-4" /> Voir la fiche
+                        </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => handleViewFile(student.id)}>
                           <FileText className="mr-2 h-4 w-4" /> Voir le dossier
                         </DropdownMenuItem>
@@ -203,6 +213,15 @@ const DirectoryPage: React.FC = () => {
                       <span>{student.level} - {student.department}</span>
                     </div>
                   </div>
+                  
+                  <Button 
+                    variant="ghost" 
+                    className="w-full mt-3 text-primary justify-center items-center gap-1"
+                    onClick={() => handleViewProfile(student.id)}
+                  >
+                    <Eye size={16} />
+                    Consulter la fiche
+                  </Button>
                 </Card>
               ))
             ) : (

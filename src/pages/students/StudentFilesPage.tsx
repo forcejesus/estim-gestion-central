@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,8 @@ import {
   CardContent, 
   CardDescription, 
   CardHeader, 
-  CardTitle 
+  CardTitle,
+  CardFooter
 } from "@/components/ui/card";
 import { 
   Table, 
@@ -42,7 +44,8 @@ import {
   MoreVertical,
   Download,
   Eye,
-  Trash2
+  Trash2,
+  User
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -85,6 +88,7 @@ const StudentFilesPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const [fileDialogOpen, setFileDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   const filteredFiles = MOCK_FILES.filter(file => {
     const matchesSearch = 
@@ -98,6 +102,10 @@ const StudentFilesPage: React.FC = () => {
   const handleViewFile = (id: string) => {
     setSelectedFile(id);
     setFileDialogOpen(true);
+  };
+  
+  const handleViewProfile = (studentId: string) => {
+    navigate(`/students/profile/${studentId}`);
   };
 
   const getStatusColor = (status: string) => {
@@ -161,7 +169,13 @@ const StudentFilesPage: React.FC = () => {
                       <TableCell className="font-medium">{file.id}</TableCell>
                       <TableCell>
                         <div>
-                          <p className="font-medium">{file.studentName}</p>
+                          <Button 
+                            variant="link" 
+                            className="h-auto p-0 font-medium" 
+                            onClick={() => handleViewProfile(file.studentId)}
+                          >
+                            {file.studentName}
+                          </Button>
                           <p className="text-xs text-muted-foreground">{file.studentId}</p>
                         </div>
                       </TableCell>
@@ -181,9 +195,13 @@ const StudentFilesPage: React.FC = () => {
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => handleViewProfile(file.studentId)}>
+                              <User className="mr-2 h-4 w-4" />
+                              Voir la fiche
+                            </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => handleViewFile(file.id)}>
                               <Eye className="mr-2 h-4 w-4" />
-                              Consulter
+                              Consulter le dossier
                             </DropdownMenuItem>
                             <DropdownMenuItem>
                               <FileText className="mr-2 h-4 w-4" />
@@ -231,7 +249,18 @@ const StudentFilesPage: React.FC = () => {
                   <dl className="space-y-2 text-sm">
                     <div>
                       <dt className="text-muted-foreground">Nom</dt>
-                      <dd className="font-medium">{FILE_DETAILS.student.name}</dd>
+                      <dd>
+                        <Button 
+                          variant="link" 
+                          className="h-auto p-0 font-medium" 
+                          onClick={() => {
+                            setFileDialogOpen(false);
+                            handleViewProfile(FILE_DETAILS.student.id);
+                          }}
+                        >
+                          {FILE_DETAILS.student.name}
+                        </Button>
+                      </dd>
                     </div>
                     <div>
                       <dt className="text-muted-foreground">ID</dt>
@@ -254,6 +283,19 @@ const StudentFilesPage: React.FC = () => {
                       </dd>
                     </div>
                   </dl>
+                  
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full mt-4 gap-2"
+                    onClick={() => {
+                      setFileDialogOpen(false);
+                      handleViewProfile(FILE_DETAILS.student.id);
+                    }}
+                  >
+                    <User size={14} />
+                    Voir la fiche complète
+                  </Button>
                 </CardContent>
               </Card>
               

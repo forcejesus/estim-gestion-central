@@ -20,6 +20,7 @@ import NotFound from "@/pages/NotFound";
 import NewStudentPage from "@/pages/students/NewStudentPage";
 import DirectoryPage from "@/pages/students/DirectoryPage";
 import StudentFilesPage from "@/pages/students/StudentFilesPage";
+import StudentProfilePage from "@/pages/students/StudentProfilePage";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ const App = () => (
               <Route path="/students/new" element={<NewStudentPage />} />
               <Route path="/students/directory" element={<DirectoryPage />} />
               <Route path="/students/files" element={<StudentFilesPage />} />
+              <Route path="/students/profile/:id" element={<StudentProfilePage />} />
               
               {/* Routes pour le module Examens */}
               <Route path="/examinations" element={<ExaminationsPage />} />
