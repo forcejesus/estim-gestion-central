@@ -23,9 +23,9 @@ const ContactInfoTab: React.FC<ContactInfoTabProps> = ({ form, navigateToNextTab
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-sm font-medium">Email</FormLabel>
+                <FormLabel className="text-sm font-medium">Email*</FormLabel>
                 <FormControl>
-                  <Input placeholder="exemple@email.com" className="h-10 bg-background" {...field} />
+                  <Input placeholder="exemple@email.com" className="h-10 bg-background" required {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -37,9 +37,9 @@ const ContactInfoTab: React.FC<ContactInfoTabProps> = ({ form, navigateToNextTab
             name="telephone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-sm font-medium">Téléphone</FormLabel>
+                <FormLabel className="text-sm font-medium">Téléphone*</FormLabel>
                 <FormControl>
-                  <Input placeholder="+216 XX XXX XXX" className="h-10 bg-background" {...field} />
+                  <Input placeholder="+216 XX XXX XXX" className="h-10 bg-background" required {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -51,11 +51,12 @@ const ContactInfoTab: React.FC<ContactInfoTabProps> = ({ form, navigateToNextTab
             name="adresse"
             render={({ field }) => (
               <FormItem className="md:col-span-2">
-                <FormLabel className="text-sm font-medium">Adresse</FormLabel>
+                <FormLabel className="text-sm font-medium">Adresse*</FormLabel>
                 <FormControl>
                   <Textarea 
                     placeholder="Adresse complète" 
                     className="min-h-[120px] bg-background resize-none" 
+                    required
                     {...field} 
                   />
                 </FormControl>
@@ -68,7 +69,7 @@ const ContactInfoTab: React.FC<ContactInfoTabProps> = ({ form, navigateToNextTab
       <div className="flex justify-end mt-6">
         <Button 
           type="button" 
-          onClick={() => navigateToNextTab('academic-tab')}
+          onClick={() => navigateToNextTab('academic')}
           className="bg-primary hover:bg-primary/90 text-white px-6"
         >
           Suivant <ArrowRight className="ml-2 h-4 w-4" />

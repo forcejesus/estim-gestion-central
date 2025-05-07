@@ -9,6 +9,15 @@ import { useToast } from "@/hooks/use-toast";
 import PersonalInfoTab from "./tabs/PersonalInfoTab";
 import ContactInfoTab from "./tabs/ContactInfoTab";
 import AcademicInfoTab from "./tabs/AcademicInfoTab";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
+import { AlertCircle } from "lucide-react";
 
 const studentSchema = z.object({
   prenom: z.string().min(2, "Le prénom doit contenir au moins 2 caractères"),
@@ -30,6 +39,8 @@ type StudentFormValues = z.infer<typeof studentSchema>;
 const StudentForm: React.FC = () => {
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("personal");
+  const [validationDialogOpen, setValidationDialogOpen] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const { toast } = useToast();
 
   const form = useForm<StudentFormValues>({
@@ -47,6 +58,7 @@ const StudentForm: React.FC = () => {
       filiere: "",
       niveau: "",
     },
+    mode: "onChange",
   });
 
   const onSubmit = (data: StudentFormValues) => {
@@ -77,14 +89,58 @@ const StudentForm: React.FC = () => {
     }
   };
 
+  // Validation avant la navigation entre les tabs
+  const validateTabNavigation = (targetTabId: string) => {
+    let fieldsToValidate: (keyof StudentFormValues)[] = [];
+    const errors: string[] = [];
+    
+    // Déterminer quels champs valider en fonction de l'onglet actuel
+    if (activeTab === "personal") {
+      fieldsToValidate = ["prenom", "nom", "date_naissance", "lieu_naissance", "sexe", "nationalite"];
+      
+      // Valider aussi la photo qui est un cas spécial
+      if (!form.getValues("photo")) {
+        errors.push("La photo est requise");
+      }
+    } 
+    else if (activeTab === "contact") {
+      fieldsToValidate = ["email", "telephone", "adresse"];
+    }
+    
+    // Valider les champs spécifiés
+    fieldsToValidate.forEach(field => {
+      if (!form.getValues(field)) {
+        const fieldName = field.charAt(0).toUpperCase() + field.slice(1).replace('_', ' ');
+        errors.push(`${fieldName} est requis`);
+      }
+    });
+
+    // Vérifier s'il y a des erreurs de validation déjà détectées par React Hook Form
+    fieldsToValidate.forEach(field => {
+      const fieldError = form.formState.errors[field]?.message;
+      if (fieldError) {
+        errors.push(fieldError as string);
+      }
+    });
+
+    if (errors.length > 0) {
+      setValidationErrors(errors);
+      setValidationDialogOpen(true);
+      return false;
+    }
+    
+    setActiveTab(targetTabId);
+    return true;
+  };
+
   // Navigation entre les tabs
   const navigateToNextTab = (tabId: string) => {
-    setActiveTab(tabId);
+    validateTabNavigation(tabId);
   };
 
   return (
     <div className="bg-gradient-to-b from-white to-zinc-50 dark:from-zinc-900 dark:to-zinc-950 rounded-xl p-8 shadow-md">
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <Tabs value={activeTab} onValueChange={(value) => validateTabNavigation(value)} className="w-full">
         <TabsList className="grid w-full grid-cols-3 mb-8 bg-muted/30 rounded-lg p-1.5">
           <TabsTrigger 
             value="personal" 
@@ -133,6 +189,26 @@ const StudentForm: React.FC = () => {
           </form>
         </Form>
       </Tabs>
+
+      <AlertDialog open={validationDialogOpen} onOpenChange={setValidationDialogOpen}>
+        <AlertDialogContent className="max-w-md">
+          <div className="flex items-center gap-3 mb-2 text-destructive">
+            <AlertCircle className="h-6 w-6" />
+            <AlertDialogTitle>Informations incomplètes</AlertDialogTitle>
+          </div>
+          <AlertDialogDescription className="mt-4 space-y-3">
+            <p className="text-sm text-muted-foreground">Veuillez compléter les informations suivantes avant de continuer :</p>
+            <ul className="list-disc pl-5 mt-2 space-y-1.5">
+              {validationErrors.map((error, index) => (
+                <li key={index} className="text-sm text-destructive">{error}</li>
+              ))}
+            </ul>
+          </AlertDialogDescription>
+          <AlertDialogFooter className="mt-6">
+            <AlertDialogAction className="w-full sm:w-auto">Compris</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
