@@ -4,7 +4,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import Sidebar from "./Sidebar";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { DeviceTablet, Laptop, ShieldAlert } from "lucide-react";
+import { Tablet, Laptop, ShieldAlert } from "lucide-react";
 
 const MobileAccessRestriction = () => {
   return (
@@ -21,7 +21,7 @@ const MobileAccessRestriction = () => {
           <span className="text-xs text-green-400">Recommandé</span>
         </div>
         <div className="bg-zinc-800 p-4 rounded-lg flex flex-col items-center">
-          <DeviceTablet className="h-8 w-8 text-amber-400 mb-2" />
+          <Tablet className="h-8 w-8 text-amber-400 mb-2" />
           <span className="text-sm text-zinc-300">Tablette</span>
           <span className="text-xs text-amber-400">Compatible</span>
         </div>
