@@ -1,6 +1,6 @@
 
 import React, { ReactNode } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { studentSchema, StudentFormValues } from "./validationSchema";
@@ -8,6 +8,10 @@ import { studentSchema, StudentFormValues } from "./validationSchema";
 interface StudentFormProviderProps {
   children: ReactNode;
   onSubmit: (data: StudentFormValues) => void;
+}
+
+export interface FormContextValue {
+  form: UseFormReturn<StudentFormValues>;
 }
 
 const StudentFormProvider: React.FC<StudentFormProviderProps> = ({ children, onSubmit }) => {
@@ -32,12 +36,7 @@ const StudentFormProvider: React.FC<StudentFormProviderProps> = ({ children, onS
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        {React.Children.map(children, child => {
-          if (React.isValidElement(child)) {
-            return React.cloneElement(child, { form });
-          }
-          return child;
-        })}
+        {children}
       </form>
     </Form>
   );

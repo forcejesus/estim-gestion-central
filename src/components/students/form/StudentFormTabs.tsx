@@ -6,22 +6,23 @@ import ContactInfoTab from "../tabs/ContactInfoTab";
 import AcademicInfoTab from "../tabs/AcademicInfoTab";
 import ValidationErrorDialog from "./ValidationErrorDialog";
 import { StudentFormValues } from "./validationSchema";
-import { UseFormReturn } from "react-hook-form";
+import { UseFormReturn, useFormContext } from "react-hook-form";
 
 interface StudentFormTabsProps {
-  form: UseFormReturn<StudentFormValues>;
   photoPreview: string | null;
   handlePhotoChange: (files: FileList | null) => void;
 }
 
 const StudentFormTabs: React.FC<StudentFormTabsProps> = ({ 
-  form, 
   photoPreview, 
   handlePhotoChange 
 }) => {
   const [activeTab, setActiveTab] = useState("personal");
   const [validationDialogOpen, setValidationDialogOpen] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  
+  // Get form from context instead of props
+  const form = useFormContext() as UseFormReturn<StudentFormValues>;
 
   // Validation before the navigation between the tabs
   const validateTabNavigation = (targetTabId: string) => {
