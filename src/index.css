@@ -16,10 +16,10 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 221.2 83.2% 53.3%;
+    --primary: 142 70% 40%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 199.2 88.6% 48.4%;
+    --secondary: 60 100% 50%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 210 40% 96.1%;
@@ -33,18 +33,18 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --ring: 142 70% 40%;
 
     --radius: 0.5rem;
 
     --sidebar-background: 223 62% 98%;
     --sidebar-foreground: 223 47% 11%;
-    --sidebar-primary: 221.2 83.2% 53.3%;
+    --sidebar-primary: 142 70% 40%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 223 47% 94%;
     --sidebar-accent-foreground: 223 47% 11%;
     --sidebar-border: 223 47% 94%;
-    --sidebar-ring: 221.2 83.2% 53.3%;
+    --sidebar-ring: 142 70% 40%;
   }
 
   .dark {
@@ -57,10 +57,10 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 142 70% 40%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 199.2 88.6% 48.4%;
+    --secondary: 60 100% 50%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 17.5%;
@@ -74,16 +74,16 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --ring: 142.5 71.8% 40.7%;
 
     --sidebar-background: 223 47% 11%;
     --sidebar-foreground: 223 62% 98%;
-    --sidebar-primary: 221.2 83.2% 53.3%;
+    --sidebar-primary: 142 71% 45%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 223 47% 18%;
     --sidebar-accent-foreground: 223 62% 98%;
     --sidebar-border: 223 47% 18%;
-    --sidebar-ring: 221.2 83.2% 53.3%;
+    --sidebar-ring: 142 70% 40%;
   }
 }
 
@@ -101,6 +101,42 @@
   }
 }
 
+/* Glass effect for cards */
+.glass-card {
+  @apply bg-white/80 backdrop-blur-sm border border-white/20 shadow-lg;
+}
+
+/* Animated gradient background */
+.animated-gradient {
+  background: linear-gradient(-45deg, #4CAF5033, #FFEB3B33, #21212133, #FFFFFF33);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Input focus styles */
+@layer components {
+  .input-focus {
+    @apply focus:border-estim-green focus:ring-2 focus:ring-estim-green/20 transition-all duration-200;
+  }
+  
+  .button-estim {
+    @apply bg-estim-green text-white hover:bg-estim-green/90 transition-all;
+  }
+}
+
+/* Keep existing utility classes */
 .data-table {
   @apply w-full border-collapse;
 }
