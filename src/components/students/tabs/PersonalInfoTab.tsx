@@ -46,9 +46,9 @@ const PersonalInfoTab: React.FC<PersonalInfoTabProps> = ({
               name="prenom"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-medium">Prénom</FormLabel>
+                  <FormLabel className="text-sm font-medium">Prénom*</FormLabel>
                   <FormControl>
-                    <Input placeholder="Entrez le prénom" className="h-10 bg-background" {...field} />
+                    <Input placeholder="Entrez le prénom" className="h-10 bg-background" required {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -60,9 +60,9 @@ const PersonalInfoTab: React.FC<PersonalInfoTabProps> = ({
               name="nom"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-medium">Nom de famille</FormLabel>
+                  <FormLabel className="text-sm font-medium">Nom de famille*</FormLabel>
                   <FormControl>
-                    <Input placeholder="Entrez le nom de famille" className="h-10 bg-background" {...field} />
+                    <Input placeholder="Entrez le nom de famille" className="h-10 bg-background" required {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -74,7 +74,7 @@ const PersonalInfoTab: React.FC<PersonalInfoTabProps> = ({
               name="date_naissance"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel className="text-sm font-medium">Date de naissance</FormLabel>
+                  <FormLabel className="text-sm font-medium">Date de naissance*</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
@@ -121,9 +121,9 @@ const PersonalInfoTab: React.FC<PersonalInfoTabProps> = ({
               name="lieu_naissance"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-medium">Lieu de naissance</FormLabel>
+                  <FormLabel className="text-sm font-medium">Lieu de naissance*</FormLabel>
                   <FormControl>
-                    <Input placeholder="Lieu de naissance" className="h-10 bg-background" {...field} />
+                    <Input placeholder="Lieu de naissance" className="h-10 bg-background" required {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -135,10 +135,11 @@ const PersonalInfoTab: React.FC<PersonalInfoTabProps> = ({
               name="sexe"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-medium">Genre</FormLabel>
+                  <FormLabel className="text-sm font-medium">Genre*</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
+                    required
                   >
                     <FormControl>
                       <SelectTrigger className="h-10 bg-background">
@@ -160,9 +161,9 @@ const PersonalInfoTab: React.FC<PersonalInfoTabProps> = ({
               name="nationalite"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-medium">Nationalité</FormLabel>
+                  <FormLabel className="text-sm font-medium">Nationalité*</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nationalité" className="h-10 bg-background" {...field} />
+                    <Input placeholder="Nationalité" className="h-10 bg-background" required {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -175,7 +176,7 @@ const PersonalInfoTab: React.FC<PersonalInfoTabProps> = ({
       <div className="flex justify-end mt-8">
         <Button 
           type="button" 
-          onClick={() => navigateToNextTab('contact-tab')}
+          onClick={() => navigateToNextTab('contact')}
           className="bg-primary hover:bg-primary/90 text-white px-6"
         >
           Suivant <ArrowRight className="ml-2 h-4 w-4" />

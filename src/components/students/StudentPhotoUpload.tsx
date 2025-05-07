@@ -1,9 +1,7 @@
 
 import React from "react";
 import { Camera, Upload } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 
 interface StudentPhotoUploadProps {
@@ -32,6 +30,7 @@ const StudentPhotoUpload: React.FC<StudentPhotoUploadProps> = ({ photoPreview, o
           id="photo" 
           accept="image/*"
           className="sr-only"
+          required
           onChange={(e) => onPhotoChange(e.target.files)}
         />
         <TooltipProvider>
@@ -51,21 +50,11 @@ const StudentPhotoUpload: React.FC<StudentPhotoUploadProps> = ({ photoPreview, o
         </TooltipProvider>
       </div>
       
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button variant="link" size="sm" className="text-xs text-muted-foreground">
-            Normes pour la photo
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-80 p-4" align="center">
-          <div className="space-y-2 text-center">
-            <h4 className="font-medium text-sm">Photo d'identité</h4>
-            <p className="text-xs text-muted-foreground">
-              Utiliser l'application mobile ESTIM Photo pour photographier l'étudiant et avoir une image conforme.
-            </p>
-          </div>
-        </PopoverContent>
-      </Popover>
+      <div className="text-center mt-2 bg-muted/30 p-2 rounded-md w-full">
+        <p className="text-xs text-muted-foreground font-medium">
+          Utiliser l'application mobile ESTIM Photo pour photographier l'étudiant et avoir une image conforme
+        </p>
+      </div>
     </div>
   );
 };
