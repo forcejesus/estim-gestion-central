@@ -16,7 +16,9 @@ import {
   ClipboardList,
   Award,
   BookMarked,
-  BookPlus
+  BookPlus,
+  FileSearch,
+  CheckSquare
 } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import NavItem from "./NavItem";
@@ -38,6 +40,7 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({ collapsed }) => {
       <div className="flex flex-col items-center space-y-4 py-4">
         <CollapsedNavItem to="/" icon={<LayoutDashboard size={20} />} isActive={isActive("/")} label="Tableau de bord" />
         <CollapsedNavItem to="/students" icon={<Users size={20} />} isActive={isActive("/students")} label="Étudiants" />
+        <CollapsedNavItem to="/examinations" icon={<FileSearch size={20} />} isActive={isActive("/examinations")} label="Examens" />
         <CollapsedNavItem to="/finances" icon={<CreditCard size={20} />} isActive={isActive("/finances")} label="Finances" />
         <CollapsedNavItem to="/library" icon={<Library size={20} />} isActive={isActive("/library")} label="Bibliothèque" />
         <CollapsedNavItem to="/academic" icon={<GraduationCap size={20} />} isActive={isActive("/academic")} label="Scolarité" />
@@ -68,6 +71,22 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({ collapsed }) => {
           <NavItem to="/students/files" label="Dossiers étudiants" icon={<FileText size={16} />} isActive={isActive("/students/files")} isSubmenuItem={true} />
           <NavItem to="/students/grades" label="Relevés de notes" icon={<ClipboardList size={16} />} isActive={isActive("/students/grades")} isSubmenuItem={true} />
           <NavItem to="/students/certificates" label="Attestations" icon={<Award size={16} />} isActive={isActive("/students/certificates")} isSubmenuItem={true} />
+        </div>
+      </div>
+      
+      <div className="relative w-full mb-1">
+        <NavItem 
+          to="/examinations" 
+          icon={<FileSearch size={18} />} 
+          label="Examens" 
+          isActive={isActive("/examinations")}
+          expanded={false}
+        />
+        <div className="pl-9 pt-1 pb-1 space-y-0.5">
+          <NavItem to="/examinations/sessions" label="Sessions d'examen" icon={<Calendar size={16} />} isActive={isActive("/examinations/sessions")} isSubmenuItem={true} />
+          <NavItem to="/examinations/grades" label="Saisie des notes" icon={<ClipboardList size={16} />} isActive={isActive("/examinations/grades")} isSubmenuItem={true} />
+          <NavItem to="/examinations/results" label="Résultats" icon={<CheckSquare size={16} />} isActive={isActive("/examinations/results")} isSubmenuItem={true} />
+          <NavItem to="/examinations/reports" label="Rapports" icon={<FileText size={16} />} isActive={isActive("/examinations/reports")} isSubmenuItem={true} />
         </div>
       </div>
       

@@ -46,8 +46,10 @@ const App = () => (
               <Route path="/students/grades" element={<GradesPage />} />
               <Route path="/students/certificates" element={<CertificatesPage />} />
               
-              <Route path="/finances" element={<FinancesPage />} />
+              {/* Routes pour le module Examens */}
               <Route path="/examinations" element={<ExaminationsPage />} />
+              
+              <Route path="/finances" element={<FinancesPage />} />
               <Route path="/library" element={<LibraryPage />} />
             </Route>
             
