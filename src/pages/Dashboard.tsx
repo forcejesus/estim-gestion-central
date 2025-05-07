@@ -1,29 +1,29 @@
+
 import React, { useState, Suspense, lazy } from "react";
 import Header from "@/components/layout/Header";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { 
-  Users, BookText, Library, Calendar as CalendarIcon,
+  Users, BookText, Library,
   TrendingUp, PieChart, BarChart, ChevronRight, Loader2,
   LineChart, ArrowUpRight, ArrowDownRight, Ban, CheckCircle2,
   Clock, Bell, Info
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 // Lazy loaded chart components
 const StatsCards = lazy(() => import('@/components/dashboard/StatsCards'));
 const LevelDistributionChart = lazy(() => import('@/components/dashboard/LevelDistributionChart'));
 const ProgramDistributionChart = lazy(() => import('@/components/dashboard/ProgramDistributionChart'));
 const ClassScheduleTable = lazy(() => import('@/components/dashboard/ClassScheduleTable'));
-const CalendarWidget = lazy(() => import('@/components/dashboard/CalendarWidget'));
 const AttendanceChart = lazy(() => import('@/components/dashboard/AttendanceChart'));
-const RecentActivities = lazy(() => import('@/components/dashboard/RecentActivities'));
+const TeacherScheduleList = lazy(() => import('@/components/dashboard/TeacherScheduleList'));
 
 const Dashboard: React.FC = () => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [activeLevel, setActiveLevel] = useState<string>("all");
   
   // Sample data for statistics with improved metrics
   const statCards = [
@@ -72,42 +72,6 @@ const Dashboard: React.FC = () => {
     { date: 'Mer', présence: 88, absence: 12 },
     { date: 'Jeu', présence: 93, absence: 7 },
     { date: 'Ven', présence: 89, absence: 11 },
-  ];
-
-  // Données pour les activités récentes - properly typed type property
-  const recentActivities = [
-    { 
-      id: 1, 
-      title: 'Mise à jour du programme L3 Informatique', 
-      type: 'update' as const, // using const assertion for type safety
-      time: 'Il y a 15 minutes',
-      user: 'Dr. Amal Ben Ahmed',
-      details: 'Modifications du programme pour le semestre 2'
-    },
-    { 
-      id: 2, 
-      title: 'Nouveau paiement enregistré', 
-      type: 'payment' as const,
-      time: 'Il y a 35 minutes',
-      user: 'Karim Belhadj',
-      details: 'Paiement trimestriel - 1200€'
-    },
-    { 
-      id: 3, 
-      title: 'Calendrier des examens publié', 
-      type: 'calendar' as const,
-      time: 'Il y a 2 heures',
-      user: 'Administration',
-      details: 'Session de rattrapage - Mai 2025'
-    },
-    { 
-      id: 4, 
-      title: 'Nouvel emprunt bibliothèque', 
-      type: 'library' as const,
-      time: 'Il y a 3 heures',
-      user: 'Sarah Riahi',
-      details: 'Retour prévu le 15/05/2025'
-    }
   ];
   
   return (
@@ -249,45 +213,9 @@ const Dashboard: React.FC = () => {
             </Card>
           </Suspense>
 
-          {/* Recent Activities */}
+          {/* Teacher Schedule with Tabs by Level - New Component */}
           <Suspense fallback={
-            <Card className="col-span-12 md:col-span-6 win11-card animate-pulse">
-              <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <Skeleton className="h-6 w-48 mb-2" />
-                  <Skeleton className="h-4 w-64" />
-                </div>
-                <Skeleton className="h-9 w-24 rounded" />
-              </CardHeader>
-              <CardContent>
-                <div className="rounded-md border overflow-hidden">
-                  <div className="h-[250px] flex items-center justify-center">
-                    <Loader2 className="h-10 w-10 animate-spin text-muted-foreground" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          }>
-            <Card className="col-span-12 md:col-span-6 win11-card win11-reveal" style={{animationDelay: "0.2s"}}>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <CardTitle className="text-xl font-semibold">Activités récentes</CardTitle>
-                  <CardDescription>Dernières actions effectuées dans le système</CardDescription>
-                </div>
-                <Button variant="outline" size="sm" className="win11-button">
-                  Historique complet
-                  <ChevronRight className="ml-1 h-4 w-4" />
-                </Button>
-              </CardHeader>
-              <CardContent>
-                <RecentActivities activities={recentActivities} />
-              </CardContent>
-            </Card>
-          </Suspense>
-
-          {/* Class Schedule Table */}
-          <Suspense fallback={
-            <Card className="col-span-12 md:col-span-6 win11-card animate-pulse">
+            <Card className="col-span-12 win11-card animate-pulse">
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
                   <Skeleton className="h-6 w-48 mb-2" />
@@ -304,7 +232,43 @@ const Dashboard: React.FC = () => {
               </CardContent>
             </Card>
           }>
-            <Card className="col-span-12 md:col-span-6 win11-card win11-reveal" style={{animationDelay: "0.3s"}}>
+            <Card className="col-span-12 win11-card win11-reveal" style={{animationDelay: "0.3s"}}>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle className="text-xl font-semibold">Enseignants du jour</CardTitle>
+                  <CardDescription>Liste des enseignants qui auront cours aujourd'hui - {new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</CardDescription>
+                </div>
+                <Button variant="outline" size="sm" className="win11-button">
+                  Voir tout
+                  <ChevronRight className="ml-1 h-4 w-4" />
+                </Button>
+              </CardHeader>
+              <CardContent>
+                <TeacherScheduleList activeLevel={activeLevel} setActiveLevel={setActiveLevel} />
+              </CardContent>
+            </Card>
+          </Suspense>
+
+          {/* Class Schedule Table - Full Width */}
+          <Suspense fallback={
+            <Card className="col-span-12 win11-card animate-pulse">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <Skeleton className="h-6 w-48 mb-2" />
+                  <Skeleton className="h-4 w-64" />
+                </div>
+                <Skeleton className="h-9 w-24 rounded" />
+              </CardHeader>
+              <CardContent>
+                <div className="rounded-md border overflow-hidden">
+                  <div className="h-[300px] flex items-center justify-center">
+                    <Loader2 className="h-10 w-10 animate-spin text-muted-foreground" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          }>
+            <Card className="col-span-12 win11-card win11-reveal" style={{animationDelay: "0.4s"}}>
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
                   <CardTitle className="text-xl font-semibold">Planning des cours</CardTitle>
@@ -317,33 +281,6 @@ const Dashboard: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <ClassScheduleTable className="" />
-              </CardContent>
-            </Card>
-          </Suspense>
-
-          {/* Calendar */}
-          <Suspense fallback={
-            <Card className="col-span-12 win11-card animate-pulse">
-              <CardHeader>
-                <Skeleton className="h-6 w-32" />
-              </CardHeader>
-              <CardContent>
-                <div className="min-h-[400px] flex items-center justify-center">
-                  <Loader2 className="h-10 w-10 animate-spin text-muted-foreground" />
-                </div>
-              </CardContent>
-            </Card>
-          }>
-            <Card className="col-span-12 win11-card win11-reveal" style={{animationDelay: "0.4s"}}>
-              <CardHeader>
-                <CardTitle className="text-xl font-semibold flex items-center gap-2">
-                  <CalendarIcon size={20} className="text-blue-600" />
-                  Calendrier des événements
-                </CardTitle>
-                <CardDescription>Planning des événements à venir pour l'établissement</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <CalendarWidget className="" date={date} setDate={setDate} />
               </CardContent>
             </Card>
           </Suspense>
