@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Header from "@/components/layout/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -358,21 +357,14 @@ const NewStudentPage: React.FC = () => {
                         )}
                       />
 
-                      <FormField
-                        control={form.control}
-                        name="_matricule"
-                        render={() => (
-                          <FormItem>
-                            <FormLabel>Matricule</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Généré automatiquement" disabled />
-                            </FormControl>
-                            <FormDescription className="text-xs text-muted-foreground">
-                              Le matricule sera généré automatiquement lors de la validation
-                            </FormDescription>
-                          </FormItem>
-                        )}
-                      />
+                      {/* Here's the fix: Changed from FormField with name="_matricule" to just a div with the same styling */}
+                      <div>
+                        <FormLabel htmlFor="matricule">Matricule</FormLabel>
+                        <Input id="matricule" placeholder="Généré automatiquement" disabled />
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Le matricule sera généré automatiquement lors de la validation
+                        </p>
+                      </div>
                     </div>
 
                     <div className="flex justify-end mt-6">
