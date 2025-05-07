@@ -6,8 +6,6 @@ import Header from "@/components/layout/Header";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
 
 const StudentsPage: React.FC = () => {
   // Données statistiques pour la démonstration
@@ -36,17 +34,6 @@ const StudentsPage: React.FC = () => {
     { name: 'Communication', count: 87 },
     { name: 'RH', count: 46 }
   ];
-
-  const chartConfig = {
-    level: {
-      label: "Niveau",
-      theme: { light: "#4F46E5", dark: "#818CF8" }
-    },
-    program: {
-      label: "Filière",
-      theme: { light: "#10B981", dark: "#34D399" }
-    }
-  };
 
   return (
     <>
@@ -107,95 +94,63 @@ const StudentsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Section Graphiques Statistiques - Modifiée pour afficher verticalement */}
-          <div className="grid grid-cols-1 gap-6">
-            {/* Graphique par niveau */}
-            <Card>
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <GraduationCap size={18} />
-                    Répartition par niveau
-                  </CardTitle>
-                  <Badge variant="outline" className="ml-2">
-                    {stats.totalStudents} étudiants
-                  </Badge>
+          {/* Section Répartition par niveau - Convertie en cartes simples */}
+          <div className="mb-6">
+            <div className="flex items-center gap-2 mb-3">
+              <GraduationCap size={20} className="text-primary" />
+              <h2 className="text-lg font-semibold">Répartition par niveau</h2>
+              <Badge variant="outline" className="ml-2">
+                {stats.totalStudents} étudiants
+              </Badge>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {levelData.map((level) => (
+                <div key={level.name} className="bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-zinc-200 dark:border-zinc-700 p-4">
+                  <div className="flex flex-col items-center text-center">
+                    <p className="text-2xl font-bold mb-1">{level.count}</p>
+                    <div className="w-20 h-1 bg-indigo-500 rounded my-2"></div>
+                    <p className="text-muted-foreground text-sm">{level.name}</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {Math.round((level.count / stats.totalStudents) * 100)}% des étudiants
+                    </p>
+                  </div>
                 </div>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="h-[250px] mt-4">
-                  <ChartContainer config={chartConfig}>
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={levelData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                        <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-                        <YAxis tick={{ fontSize: 12 }} />
-                        <ChartTooltip 
-                          content={({ active, payload }) => (
-                            <ChartTooltipContent 
-                              active={active} 
-                              payload={payload} 
-                              formatter={(value) => [`${value} étudiants`, 'Effectif']}
-                            />
-                          )} 
-                        />
-                        <Bar 
-                          dataKey="count" 
-                          name="Étudiants" 
-                          fill="var(--color-level)" 
-                          radius={[4, 4, 0, 0]}
-                          animationDuration={1000}
-                        />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </ChartContainer>
-                </div>
-              </CardContent>
-            </Card>
+              ))}
+            </div>
+          </div>
 
-            {/* Graphique par filière */}
-            <Card>
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <ChartBarBig size={18} />
-                    Répartition par filière
-                  </CardTitle>
-                  <Badge variant="outline" className="ml-2">
-                    {stats.totalStudents} étudiants
-                  </Badge>
+          {/* Section Répartition par filière - Convertie en cartes simples */}
+          <div className="mb-6">
+            <div className="flex items-center gap-2 mb-3">
+              <ChartBarBig size={20} className="text-primary" />
+              <h2 className="text-lg font-semibold">Répartition par filière</h2>
+              <Badge variant="outline" className="ml-2">
+                {stats.totalStudents} étudiants
+              </Badge>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {programData.map((program, index) => (
+                <div 
+                  key={program.name} 
+                  className="bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-zinc-200 dark:border-zinc-700 p-4"
+                >
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">{program.name}</span>
+                    <span className="font-bold">{program.count}</span>
+                  </div>
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
+                    <div 
+                      className="bg-emerald-500 h-2 rounded-full" 
+                      style={{ width: `${Math.round((program.count / stats.totalStudents) * 100)}%` }}
+                    >
+                    </div>
+                  </div>
+                  <p className="text-xs text-right text-muted-foreground mt-1">
+                    {Math.round((program.count / stats.totalStudents) * 100)}%
+                  </p>
                 </div>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="h-[250px] mt-4">
-                  <ChartContainer config={chartConfig}>
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={programData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                        <XAxis dataKey="name" tick={{ fontSize: 12 }} angle={-45} textAnchor="end" height={60} />
-                        <YAxis tick={{ fontSize: 12 }} />
-                        <ChartTooltip 
-                          content={({ active, payload }) => (
-                            <ChartTooltipContent 
-                              active={active} 
-                              payload={payload} 
-                              formatter={(value) => [`${value} étudiants`, 'Effectif']}
-                            />
-                          )} 
-                        />
-                        <Bar 
-                          dataKey="count" 
-                          name="Filière" 
-                          fill="var(--color-program)" 
-                          radius={[4, 4, 0, 0]}
-                          animationDuration={1000}
-                        />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </ChartContainer>
-                </div>
-              </CardContent>
-            </Card>
+              ))}
+            </div>
           </div>
           
           {/* Cartes des fonctionnalités */}
