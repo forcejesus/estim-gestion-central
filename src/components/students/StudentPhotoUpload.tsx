@@ -30,7 +30,6 @@ const StudentPhotoUpload: React.FC<StudentPhotoUploadProps> = ({ photoPreview, o
           id="photo" 
           accept="image/*"
           className="sr-only"
-          required
           onChange={(e) => onPhotoChange(e.target.files)}
         />
         <TooltipProvider>

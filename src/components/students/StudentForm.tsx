@@ -108,10 +108,7 @@ const StudentForm: React.FC = () => {
     if (activeTab === "personal") {
       fieldsToValidate = ["prenom", "nom", "date_naissance", "lieu_naissance", "sexe", "nationalite"];
       
-      // Also validate the photo which is a special case
-      if (!form.getValues("photo")) {
-        errors.push("La photo est requise");
-      }
+      // Photo is no longer required, so we remove the validation check
       
       // Additional validation for date_naissance
       const birthDate = form.getValues("date_naissance");
