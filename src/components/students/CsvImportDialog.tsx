@@ -68,6 +68,12 @@ const CsvImportDialog: React.FC<CsvImportDialogProps> = ({ onSuccess }) => {
         }
       }
       
+      // Vérifier que niveau est une valeur valide
+      const validNiveaux = ['l1', 'l2', 'l3', 'estim_online'];
+      if (!validNiveaux.includes(student.niveau.toLowerCase())) {
+        throw new Error(`Ligne ${i + 1}: niveau "${student.niveau}" n'est pas valide. Utilisez l1, l2, l3, ou estim_online`);
+      }
+      
       students.push(student);
     }
     
@@ -103,17 +109,40 @@ const CsvImportDialog: React.FC<CsvImportDialogProps> = ({ onSuccess }) => {
     }
   };
 
+  const downloadTemplate = () => {
+    // Créer le contenu du modèle CSV
+    const csvContent = [
+      'prenom,nom,date_naissance,sexe,email,filiere,niveau,lieu_naissance,nationalite,telephone,adresse',
+      'Jean,Dupont,1995-05-12,M,jean.dupont@example.com,informatique,l1,Paris,Française,770000000,Dakar',
+      'Marie,Diop,1998-09-24,F,marie.diop@example.com,gestion,l2,Dakar,Sénégalaise,770000001,Dakar',
+      'Ahmed,Sall,1997-03-15,M,ahmed.sall@example.com,marketing,l3,Thiès,Sénégalaise,770000002,Thiès',
+      'Fatou,Ndiaye,1999-11-30,F,fatou.ndiaye@example.com,finance,estim_online,Saint-Louis,Sénégalaise,770000003,Saint-Louis'
+    ].join('\n');
+    
+    // Créer un objet Blob pour le téléchargement
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    
+    // Créer un lien temporaire pour le téléchargement
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'modele_etudiants.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="gap-2">
+        <Button variant="outline" className="gap-2 bg-primary/10 hover:bg-primary/20 border-primary/20">
           <Upload className="h-4 w-4" />
           Importer depuis un CSV
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Importer des étudiants</DialogTitle>
+          <DialogTitle className="text-xl">Importer des étudiants</DialogTitle>
           <DialogDescription>
             Importez plusieurs étudiants à la fois à partir d'un fichier CSV.
           </DialogDescription>
@@ -121,6 +150,15 @@ const CsvImportDialog: React.FC<CsvImportDialogProps> = ({ onSuccess }) => {
         
         <div className="space-y-4 py-4">
           <div className="flex flex-col gap-4">
+            <Button 
+              variant="ghost" 
+              className="flex items-center gap-2 justify-center w-full border border-dashed border-primary/30 hover:bg-primary/5 py-6"
+              onClick={downloadTemplate}
+            >
+              <FileText className="h-5 w-5 text-primary" />
+              <span>Télécharger le modèle CSV</span>
+            </Button>
+          
             <div className="border rounded-md p-4 bg-muted/30">
               <h4 className="font-medium mb-2 flex items-center gap-2">
                 <FileText className="h-4 w-4" />
@@ -135,8 +173,8 @@ const CsvImportDialog: React.FC<CsvImportDialogProps> = ({ onSuccess }) => {
                 <li>date_naissance (format YYYY-MM-DD)</li>
                 <li>sexe (M ou F)</li>
                 <li>email</li>
-                <li>filiere</li>
-                <li>niveau</li>
+                <li>filiere (informatique, gestion, marketing, commerce, finance, communication, rh)</li>
+                <li>niveau (l1, l2, l3, estim_online)</li>
               </ul>
               <p className="text-xs mt-2 text-muted-foreground">
                 Colonnes optionnelles: lieu_naissance, nationalite, telephone, adresse
@@ -144,18 +182,27 @@ const CsvImportDialog: React.FC<CsvImportDialogProps> = ({ onSuccess }) => {
             </div>
             
             <div className="flex flex-col gap-2">
-              <Input
-                id="csvFile"
-                type="file"
-                accept=".csv"
-                onChange={handleFileChange}
-                className="cursor-pointer"
-              />
+              <label 
+                htmlFor="csvFile" 
+                className="cursor-pointer py-8 border-2 border-dashed border-primary/20 rounded-md flex flex-col items-center justify-center bg-primary/5 hover:bg-primary/10 transition-colors"
+              >
+                <Upload className="h-8 w-8 text-primary mb-2" />
+                <span className="font-medium">Cliquez pour sélectionner un fichier CSV</span>
+                <span className="text-sm text-muted-foreground mt-1">ou glissez-déposez le fichier ici</span>
+                <Input
+                  id="csvFile"
+                  type="file"
+                  accept=".csv"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+              </label>
+              
               {file && (
-                <div className="text-sm flex items-center gap-2">
-                  <Check className="h-4 w-4 text-green-500" />
+                <div className="text-sm flex items-center gap-2 p-3 bg-primary/10 rounded-md">
+                  <Check className="h-5 w-5 text-green-500" />
                   <span className="font-medium">{file.name}</span>
-                  <span className="text-muted-foreground">
+                  <span className="text-muted-foreground ml-auto">
                     ({(file.size / 1024).toFixed(1)} KB)
                   </span>
                 </div>
@@ -173,13 +220,22 @@ const CsvImportDialog: React.FC<CsvImportDialogProps> = ({ onSuccess }) => {
           </div>
         </div>
         
-        <DialogFooter className="sm:justify-end">
+        <DialogFooter className="sm:justify-between flex-wrap gap-2">
+          <Button
+            variant="outline"
+            onClick={downloadTemplate}
+            className="order-1 sm:order-none"
+          >
+            Télécharger le modèle
+          </Button>
+          
           <Button
             variant="default"
             onClick={handleUpload}
             disabled={!file || isUploading}
+            className="w-full sm:w-auto"
           >
-            {isUploading ? "Importation..." : "Importer"}
+            {isUploading ? "Importation..." : "Importer les étudiants"}
           </Button>
         </DialogFooter>
       </DialogContent>
