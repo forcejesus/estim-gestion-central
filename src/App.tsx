@@ -16,6 +16,13 @@ import ExaminationsPage from "@/pages/ExaminationsPage";
 import LibraryPage from "@/pages/LibraryPage";
 import NotFound from "@/pages/NotFound";
 
+// Import des pages étudiants
+import NewStudentPage from "@/pages/students/NewStudentPage";
+import DirectoryPage from "@/pages/students/DirectoryPage";
+import StudentFilesPage from "@/pages/students/StudentFilesPage";
+import GradesPage from "@/pages/students/GradesPage";
+import CertificatesPage from "@/pages/students/CertificatesPage";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -30,7 +37,15 @@ const App = () => (
             
             <Route element={<MainLayout />}>
               <Route path="/" element={<Dashboard />} />
+              
+              {/* Routes pour le module Étudiants */}
               <Route path="/students" element={<StudentsPage />} />
+              <Route path="/students/new" element={<NewStudentPage />} />
+              <Route path="/students/directory" element={<DirectoryPage />} />
+              <Route path="/students/files" element={<StudentFilesPage />} />
+              <Route path="/students/grades" element={<GradesPage />} />
+              <Route path="/students/certificates" element={<CertificatesPage />} />
+              
               <Route path="/finances" element={<FinancesPage />} />
               <Route path="/examinations" element={<ExaminationsPage />} />
               <Route path="/library" element={<LibraryPage />} />
