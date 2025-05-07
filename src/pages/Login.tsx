@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -72,8 +71,8 @@ const Login: React.FC = () => {
                 <p className="text-3xl font-bold">42</p>
               </div>
               <div className="bg-white/10 p-4 rounded-lg text-center backdrop-blur-sm hover:bg-white/20 transition-all">
-                <h3 className="font-semibold">Livres</h3>
-                <p className="text-3xl font-bold">1256</p>
+                <h3 className="font-semibold">Finances</h3>
+                <p className="text-3xl font-bold">12.5M FCFA</p>
               </div>
             </div>
           </div>

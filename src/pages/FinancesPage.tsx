@@ -62,7 +62,7 @@ const FinancesPage: React.FC = () => {
               <CardTitle className="text-sm font-medium">Total encaissé</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">{totalPayments.toLocaleString()} €</div>
+              <div className="text-2xl font-bold text-green-600">{totalPayments.toLocaleString()} FCFA</div>
             </CardContent>
           </Card>
           <Card>
@@ -70,7 +70,7 @@ const FinancesPage: React.FC = () => {
               <CardTitle className="text-sm font-medium">En attente</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-amber-600">{pendingPayments.toLocaleString()} €</div>
+              <div className="text-2xl font-bold text-amber-600">{pendingPayments.toLocaleString()} FCFA</div>
             </CardContent>
           </Card>
           <Card>
@@ -78,7 +78,7 @@ const FinancesPage: React.FC = () => {
               <CardTitle className="text-sm font-medium">Dépenses</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-600">{totalExpenses.toLocaleString()} €</div>
+              <div className="text-2xl font-bold text-red-600">{totalExpenses.toLocaleString()} FCFA</div>
             </CardContent>
           </Card>
           <Card>
@@ -87,7 +87,7 @@ const FinancesPage: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className={`text-2xl font-bold ${balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                {balance.toLocaleString()} €
+                {balance.toLocaleString()} FCFA
               </div>
             </CardContent>
           </Card>
@@ -144,7 +144,7 @@ const FinancesPage: React.FC = () => {
                             <TableCell className="font-medium">{payment.id}</TableCell>
                             <TableCell>{payment.student}</TableCell>
                             <TableCell className="hidden md:table-cell">{payment.type}</TableCell>
-                            <TableCell>{payment.amount} €</TableCell>
+                            <TableCell>{payment.amount.toLocaleString()} FCFA</TableCell>
                             <TableCell className="hidden md:table-cell">{new Date(payment.date).toLocaleDateString()}</TableCell>
                             <TableCell>
                               <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -191,7 +191,7 @@ const FinancesPage: React.FC = () => {
                           <TableRow key={expense.id}>
                             <TableCell className="font-medium">{expense.id}</TableCell>
                             <TableCell>{expense.description}</TableCell>
-                            <TableCell>{expense.amount} €</TableCell>
+                            <TableCell>{expense.amount.toLocaleString()} FCFA</TableCell>
                             <TableCell className="hidden md:table-cell">{new Date(expense.date).toLocaleDateString()}</TableCell>
                             <TableCell className="hidden md:table-cell">{expense.category}</TableCell>
                           </TableRow>

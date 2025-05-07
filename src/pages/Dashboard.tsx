@@ -41,8 +41,8 @@ const Dashboard: React.FC = () => {
     },
     {
       title: "Finances",
-      value: "18,400 €",
-      change: "+5,200 € aujourd'hui",
+      value: "18,400 FCFA",
+      change: "+5,200 FCFA aujourd'hui",
       trend: "up" as const,
       icon: <BookText className="h-5 w-5 text-green-600" />,
       details: "Entrées journalières",

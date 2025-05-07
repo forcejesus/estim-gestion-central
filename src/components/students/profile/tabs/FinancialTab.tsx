@@ -41,7 +41,7 @@ const FinancialTab: React.FC<FinancialTabProps> = ({ payments, getStatusColor })
               </div>
               <div className="flex items-center gap-3">
                 <Badge className={getStatusColor(payment.status)}>{payment.status}</Badge>
-                <span className="font-medium">{payment.amount} DT</span>
+                <span className="font-medium">{payment.amount} FCFA</span>
               </div>
             </div>
           ))}

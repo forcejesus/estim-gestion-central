@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Card } from "@/components/ui/card";
 import { GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -27,7 +28,7 @@ const LevelDistributionCards: React.FC<LevelDistributionCardsProps> = ({ levelDa
         {levelData.map((level) => (
           <div key={level.name} className="bg-white dark:bg-zinc-800 rounded-lg shadow-sm border border-zinc-200 dark:border-zinc-700 p-4">
             <div className="flex flex-col items-center text-center">
-              <p className="text-2xl font-bold mb-1">{level.count}</p>
+              <p className="text-3xl font-bold mb-1">{level.count}</p>
               <div className="w-20 h-1 bg-indigo-500 rounded my-2"></div>
               <p className="text-muted-foreground text-sm">{level.name}</p>
               <p className="text-xs text-muted-foreground mt-1">
