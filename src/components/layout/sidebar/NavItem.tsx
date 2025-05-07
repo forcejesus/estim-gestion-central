@@ -36,26 +36,26 @@ const NavItem: React.FC<NavItemProps> = ({
         <Button
           variant="ghost"
           className={cn(
-            "w-full justify-between gap-2 font-medium rounded-md",
+            "w-full justify-between gap-2 font-medium rounded-lg transition-all",
             isActive ? "bg-sidebar-accent/90 text-sidebar-accent-foreground hover:bg-sidebar-accent" : 
-              "text-sidebar-foreground hover:bg-sidebar-accent/30"
+              "text-sidebar-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
           )}
           onClick={() => setIsOpen(!isOpen)}
         >
           <div className="flex items-center gap-2">
             <div className={cn(
-              "p-1 rounded mr-1",
-              isActive ? "text-white" : "text-slate-400"
+              "p-1 rounded-md",
+              isActive ? "text-white" : "text-zinc-500 dark:text-zinc-400"
             )}>
               {icon}
             </div>
             <span>{label}</span>
           </div>
-          <ChevronDown size={16} className={cn("transition-transform", isOpen ? "rotate-180" : "")} />
+          <ChevronDown size={16} className={cn("transition-transform duration-300", isOpen ? "rotate-180" : "")} />
         </Button>
         
         {isOpen && (
-          <div className="pl-9 pt-1 pb-1 space-y-0.5">
+          <div className="pl-9 pt-1 pb-1 space-y-0.5 win11-enter">
             {submenuItems.map((item, index) => (
               <Link to={item.to} key={index} className="block">
                 <Button
@@ -65,8 +65,9 @@ const NavItem: React.FC<NavItemProps> = ({
                     "w-full justify-start gap-2 font-normal text-sm rounded-md",
                     location.pathname === item.to ? 
                       "bg-sidebar-accent/70 text-sidebar-accent-foreground" : 
-                      "text-sidebar-foreground hover:bg-sidebar-accent/20"
+                      "text-sidebar-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
                   )}
+                  style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   {item.icon && <span className="text-sm">{item.icon}</span>}
                   <span>{item.label}</span>
@@ -85,13 +86,15 @@ const NavItem: React.FC<NavItemProps> = ({
       <Button
         variant="ghost"
         className={cn(
-          "w-full justify-start gap-2 font-medium rounded-md",
-          isActive ? "bg-sidebar-accent/90 text-sidebar-accent-foreground hover:bg-sidebar-accent" : "text-sidebar-foreground hover:bg-sidebar-accent/30"
+          "w-full justify-start gap-2 font-medium rounded-lg transition-all",
+          isActive 
+            ? "bg-sidebar-accent/90 text-sidebar-accent-foreground hover:bg-sidebar-accent" 
+            : "text-sidebar-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
         )}
       >
         <div className={cn(
-          "p-1 rounded mr-1",
-          isActive ? "text-white" : "text-slate-400"
+          "p-1 rounded-md",
+          isActive ? "text-white" : "text-zinc-500 dark:text-zinc-400"
         )}>
           {icon}
         </div>

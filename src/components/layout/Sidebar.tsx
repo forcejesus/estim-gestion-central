@@ -13,7 +13,7 @@ const Sidebar: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className={`h-screen bg-sidebar border-r flex flex-col transition-all duration-200 ${
+    <div className={`h-screen bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 flex flex-col transition-all duration-300 ease-in-out ${
       collapsed ? "w-16" : "w-64"
     }`}>
       <SidebarHeader collapsed={collapsed} setCollapsed={setCollapsed} />

@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import NavItem from "./NavItem";
-import CollapsedNavItem from "./CollapsedNavItem";
+import CollapsedNavItem from "../CollapsedNavItem";
 
 type NavigationItemsProps = {
   collapsed: boolean;
@@ -36,12 +36,12 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({ collapsed }) => {
 
   if (collapsed) {
     return (
-      <div className="flex flex-col items-center space-y-4 py-2">
-        <CollapsedNavItem to="/" icon={<LayoutDashboard size={20} />} isActive={isActive("/")} />
-        <CollapsedNavItem to="/students" icon={<Users size={20} />} isActive={isActive("/students")} />
-        <CollapsedNavItem to="/finances" icon={<CreditCard size={20} />} isActive={isActive("/finances")} />
-        <CollapsedNavItem to="/library" icon={<Library size={20} />} isActive={isActive("/library")} />
-        <CollapsedNavItem to="/academic" icon={<GraduationCap size={20} />} isActive={isActive("/academic")} />
+      <div className="flex flex-col items-center space-y-4 py-4">
+        <CollapsedNavItem to="/" icon={<LayoutDashboard size={20} />} isActive={isActive("/")} label="Tableau de bord" />
+        <CollapsedNavItem to="/students" icon={<Users size={20} />} isActive={isActive("/students")} label="Étudiants" />
+        <CollapsedNavItem to="/finances" icon={<CreditCard size={20} />} isActive={isActive("/finances")} label="Finances" />
+        <CollapsedNavItem to="/library" icon={<Library size={20} />} isActive={isActive("/library")} label="Bibliothèque" />
+        <CollapsedNavItem to="/academic" icon={<GraduationCap size={20} />} isActive={isActive("/academic")} label="Scolarité" />
       </div>
     );
   }

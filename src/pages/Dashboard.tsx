@@ -48,17 +48,15 @@ const Dashboard: React.FC = () => {
     }
   ];
   
-  // Data for barChartData and pieChartData will be passed to their respective components
-  
   return (
     <>
       <Header title="Tableau de bord" />
-      <div className="flex-1 overflow-auto p-6 bg-zinc-50 dark:bg-zinc-900">
+      <div className="flex-1 overflow-auto p-6 bg-zinc-50/80 dark:bg-zinc-900/80 backdrop-blur-sm">
         {/* Loading placeholder for stats cards */}
         <Suspense fallback={
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => (
-              <Card key={i} className="border border-zinc-200 dark:border-zinc-800 shadow-sm">
+              <Card key={i} className="win11-card animate-pulse">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <Skeleton className="h-5 w-24" />
                   <Skeleton className="h-10 w-10 rounded-full" />
@@ -78,7 +76,7 @@ const Dashboard: React.FC = () => {
         <div className="grid grid-cols-12 gap-6 mt-6">
           {/* Charts section with Suspense for lazy loading */}
           <Suspense fallback={
-            <Card className="col-span-12 md:col-span-6 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <Card className="col-span-12 md:col-span-6 win11-card animate-pulse">
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
                   <Skeleton className="h-6 w-40 mb-2" />
@@ -91,11 +89,22 @@ const Dashboard: React.FC = () => {
               </CardContent>
             </Card>
           }>
-            <LevelDistributionChart className="col-span-12 md:col-span-6" />
+            <Card className="col-span-12 md:col-span-6 win11-card win11-enter">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle className="text-xl font-semibold">Répartition par niveau</CardTitle>
+                  <p className="text-sm text-muted-foreground">Distribution des étudiants</p>
+                </div>
+                <PieChart className="h-5 w-5 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <LevelDistributionChart className="" />
+              </CardContent>
+            </Card>
           </Suspense>
 
           <Suspense fallback={
-            <Card className="col-span-12 md:col-span-6 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <Card className="col-span-12 md:col-span-6 win11-card animate-pulse">
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
                   <Skeleton className="h-6 w-40 mb-2" />
@@ -108,12 +117,23 @@ const Dashboard: React.FC = () => {
               </CardContent>
             </Card>
           }>
-            <ProgramDistributionChart className="col-span-12 md:col-span-6" />
+            <Card className="col-span-12 md:col-span-6 win11-card win11-enter" style={{animationDelay: "0.1s"}}>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle className="text-xl font-semibold">Répartition par filière</CardTitle>
+                  <p className="text-sm text-muted-foreground">Distribution des programmes</p>
+                </div>
+                <BarChart className="h-5 w-5 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <ProgramDistributionChart className="" />
+              </CardContent>
+            </Card>
           </Suspense>
 
           {/* Class Schedule Table */}
           <Suspense fallback={
-            <Card className="col-span-12 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <Card className="col-span-12 win11-card animate-pulse">
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
                   <Skeleton className="h-6 w-48 mb-2" />
@@ -130,12 +150,26 @@ const Dashboard: React.FC = () => {
               </CardContent>
             </Card>
           }>
-            <ClassScheduleTable className="col-span-12" />
+            <Card className="col-span-12 win11-card win11-reveal" style={{animationDelay: "0.2s"}}>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle className="text-xl font-semibold">Planning des cours</CardTitle>
+                  <p className="text-sm text-muted-foreground">Cours programmés pour cette semaine</p>
+                </div>
+                <Button variant="outline" size="sm" className="win11-button">
+                  Voir tout
+                  <ChevronRight className="ml-1 h-4 w-4" />
+                </Button>
+              </CardHeader>
+              <CardContent>
+                <ClassScheduleTable className="" />
+              </CardContent>
+            </Card>
           </Suspense>
 
-          {/* Full-width Calendar */}
+          {/* Calendar */}
           <Suspense fallback={
-            <Card className="col-span-12 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <Card className="col-span-12 win11-card animate-pulse">
               <CardHeader>
                 <Skeleton className="h-6 w-32" />
               </CardHeader>
@@ -146,7 +180,14 @@ const Dashboard: React.FC = () => {
               </CardContent>
             </Card>
           }>
-            <CalendarWidget className="col-span-12" date={date} setDate={setDate} />
+            <Card className="col-span-12 win11-card win11-reveal" style={{animationDelay: "0.3s"}}>
+              <CardHeader>
+                <CardTitle className="text-xl font-semibold">Calendrier des événements</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CalendarWidget className="" date={date} setDate={setDate} />
+              </CardContent>
+            </Card>
           </Suspense>
         </div>
       </div>
